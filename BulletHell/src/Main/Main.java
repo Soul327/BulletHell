@@ -25,7 +25,7 @@ import Misc.Prerender;
 
 public class Main implements Runnable {
 	
-	public static int width=0, height=0, devMode = 1, maxFPS = 144, baseWidth=1500, baseHeight=800;
+	public static int width=0, height=0, devMode = 0, maxFPS = 144, baseWidth=1500, baseHeight=800;
 	public static double scale = 1,fps=0;
 	public static ArrayList<String> debugMessages = new ArrayList<String>();
 	
@@ -60,34 +60,9 @@ public class Main implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
-		//frame.setUndecorated(true);
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		
-		/*
-		GraphicsDevice graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    graphics.setFullScreenWindow(frame);
-    graphics.setDisplayMode(new DisplayMode(width, height, 32, 60));
-		//*/
-		/*
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-
-    GraphicsDevice[] devices = env.getScreenDevices();
-
-    int sequence = 1;
-    for (GraphicsDevice device : devices) {
-        System.out.println("Screen Number [" + (sequence++) + "]");
-        System.out.println("Width       : " + device.getDisplayMode().getWidth());
-        System.out.println("Height      : " + device.getDisplayMode().getHeight());
-        System.out.println("Refresh Rate: " + device.getDisplayMode().getRefreshRate());
-        System.out.println("Bit Depth   : " + device.getDisplayMode().getBitDepth());
-        System.out.println("");
-    }
-		//*/
-		
 		frame.setVisible(true);
 		frame.addMouseListener(mouseManager);
 		frame.addMouseMotionListener(mouseManager);
-		//frame.setAlwaysOnTop(true);
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
@@ -99,7 +74,7 @@ public class Main implements Runnable {
 		frame.pack();
 		frame.addKeyListener(keyManager);
 		
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		width=canvas.getWidth();
 		height=canvas.getHeight();
@@ -110,7 +85,7 @@ public class Main implements Runnable {
 		width=canvas.getWidth();
 		height=canvas.getHeight();
 		keyManager.tick();
-		if(KeyManager.keyRelease(KeyEvent.VK_EQUALS)) devMode++;
+		if(KeyManager.keyRelease(KeyEvent.VK_EQUALS) & devMode<1) devMode++;
 		if(KeyManager.keyRelease(KeyEvent.VK_MINUS) & devMode>0) devMode--;
 		if(KeyManager.keyRelease(KeyEvent.VK_F1)) Player.invincibility =! Player.invincibility;
 		
@@ -154,10 +129,6 @@ public class Main implements Runnable {
 			for(int x=0;x<debugMessages.size();x++) {
 				g.drawString(debugMessages.get(x),0, x*15+45);
 			}
-			//g.drawString("Bullet Count "+StateManager.gameState.world.bullet.size(),0, 30);
-			//g.drawString("Grenade Count "+StateManager.gameState.world.grenade.size(),0, 45);
-			//g.drawString("Particle Count "+StateManager.gameState.world.particles.size()*500,0, 60);
-			
 			g.drawString("Dev Mode "+devMode,0, height-20);
 		}
 		//End Drawing!

@@ -34,7 +34,7 @@ public class Player {
 		if(KeyManager.keys[KeyEvent.VK_S]) y+=speed;
 		if(KeyManager.keys[KeyEvent.VK_A]) x-=speed;
 		if(KeyManager.keys[KeyEvent.VK_D]) x+=speed;
-		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize) gun.reloadTimmer=gun.reloadSpeed;
+		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
 		if(KeyManager.keys[KeyEvent.VK_SPACE]) {//Roll
 			
 		}

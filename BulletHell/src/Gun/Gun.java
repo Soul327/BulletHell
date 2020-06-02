@@ -16,15 +16,7 @@ public abstract class Gun {
 		mag = magSize;
 	}
 	public void fire() {
-		if(mag>=ammoUse & fireTimmer<=0) {
-			//Caclulate
-			/*
-			double 
-					px = StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2, 
-					py = StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
-					mx = MouseManager.mouseX-px-StateManager.gameState.world.camX,
-					my = -MouseManager.mouseY+py+StateManager.gameState.world.camY;
-			*/
+		if(mag>=ammoUse & fireTimmer<=0 & reloadTimmer<=0) {
 			double angle = -Math.toDegrees( 
 					Mat.getAngle(
 							StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
