@@ -37,9 +37,10 @@ public class NightsRow extends Boss{
 						case 0:y-=10;break;
 						case 1:y+=1;break;
 						case 10:
-							for(int z=0;z<Math.random()*100;z++) {
+							for(int z=0;z<Math.random()*1000;z++) {
 								Grenade gg = new Grenade();
-								gg.type = 2;
+								gg.fuse += (gg.fuse*2)*Math.random();
+								//if(Math.random()<.5) gg.type = 2;
 								gg.x = Math.random() * (1600-gg.width);
 								gg.y = Math.random() * (900-gg.height);
 								StateManager.gameState.world.grenade.add(gg);

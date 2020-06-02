@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 public class Assets {
 	public static BufferedImage[] assets=new BufferedImage[100];
 	public static BufferedImage[][] ani=new BufferedImage[10][50];
+	public static ArrayList<ArrayList<BufferedImage>> anim = new ArrayList<ArrayList<BufferedImage> >(); 
 	
 	public static void init(){
 		File actual = new File("res/Top_Down_Survivor/rifle/idle/");
@@ -67,6 +69,9 @@ public class Assets {
 		
 		assets[24] = ImageLoader.loadImage("res/Player.png");
 		
+		sheet= new SpriteSheet(ImageLoader.loadImage("res/player2.png"));
+		assets[25] = sheet.crop( 42,41, 91, 115);
+		
 		sheet= new SpriteSheet(ImageLoader.loadImage("res/smoke.png"));
 		
 		ani[3][0] = sheet.crop( 0,  0, 16, 16);
@@ -86,6 +91,25 @@ public class Assets {
 		ani[4][5] = sheet.crop(16, 48, 16, 16);
 		ani[4][6] = sheet.crop(32, 48, 16, 16);
 		ani[4][7] = sheet.crop(48, 48, 16, 16);
+		
+		//New
+		name("res/Patches.png",4,5,16);
+				
+	}
+	//Divide up animation sheets & sprite sheets
+	public static void name(String s,int width, int height, int numberOfImages) {
+		BufferedImage image = ImageLoader.loadImage(s);
+		SpriteSheet sheet= new SpriteSheet(image);
+		int widthPixel = image.getWidth()/width;
+		int heightPixel = image.getHeight()/height;
+		
+		ArrayList<BufferedImage> a = new ArrayList<BufferedImage>();
+		for(int y=0;y<height & numberOfImages>0;y++)
+			for(int x=0;x<width & numberOfImages>0;x++) {
+				a.add(sheet.crop(x*widthPixel, y*heightPixel, widthPixel, heightPixel));
+				numberOfImages--;
+			}
+		anim.add(a);
 	}
 	
 	public static BufferedImage rotateImageByDegrees(BufferedImage img, double angle) {

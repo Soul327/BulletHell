@@ -60,6 +60,9 @@ public class Player {
 						StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
 						MouseManager.mouseX-StateManager.gameState.world.camX,
 						MouseManager.mouseY-StateManager.gameState.world.camY));
+		int incSize = 25;
+		g.drawImage(Assets.assets[25], x+StateManager.gameState.world.camX-incSize/2, y+StateManager.gameState.world.camY-incSize, width+incSize, height+incSize);
+		/*
 		int incSize = 100;
 		g.drawRotatedImage(
 				Assets.assets[24], 
@@ -68,7 +71,8 @@ public class Player {
 				width+incSize, 
 				height+incSize, 
 				angle);
-		g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
+		*/
+		//g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
 		gadget.render(g);
 	}
 }

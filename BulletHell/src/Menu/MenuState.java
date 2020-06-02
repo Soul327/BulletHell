@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import Boss.Boss;
 import Boss.NightsRow;
+import Boss.Patches;
 import Boss.Robbin;
 import Gadget.Gadget;
 import Gadget.GlitchBack;
@@ -38,6 +39,7 @@ public class MenuState {
 		guns = new ArrayList<Gun>();
 		bosses = new ArrayList<Boss>();
 		
+		bosses.add(new Patches());
 		bosses.add(new Robbin());
 		bosses.add(new NightsRow());
 		

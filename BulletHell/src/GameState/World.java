@@ -63,10 +63,7 @@ public class World {
 		g.fillRect(camX, camY, width, height);
 		camX = player.getLocX(); camY = player.getLocY();
 		camX = Main.width/2-player.x-player.width/2; camY = Main.height/2-player.y-player.height/2;
-		//camX = Main.width/2-player.x-player.width/2; 
-		//camY = Main.height/2-player.y-player.height/2;
-		//camX/=Main.scale;
-		//camY/=Main.scale;
+		
 		
 		g.setColor(Color.white); g.drawLine(camX, 0, camX, Main.height);
 		g.setColor(Color.white); g.drawLine(0, camY, Main.width, camY);
