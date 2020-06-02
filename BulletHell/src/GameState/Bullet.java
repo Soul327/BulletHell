@@ -1,0 +1,78 @@
+package GameState;
+
+import java.awt.Color;
+
+import Main.StateManager;
+import Misc.Assets;
+import Misc.Graphics;
+import Misc.PlaySound;
+
+public class Bullet {
+	public boolean playerDam = true,bossDam = false,remove = false;
+	public int despawn = Main.Main.maxFPS*20;
+	public double x,y,width,height,velX,velY,damage = 1,heightFromGround=5;
+	
+	public Bullet(double power, double angle) {
+		x = 650;
+		y = 400;
+		width = 10;
+		height = 10;
+		angle = -angle;
+		this.velX = (power*(60.0/Main.Main.maxFPS)) * Math.cos(Math.toRadians(angle));
+		this.velY = (power*(60.0/Main.Main.maxFPS)) * Math.sin(Math.toRadians(angle));
+		//new PlaySound("res/Sounds/boom_pack/boom4.wav").start();
+	}
+	public void tick() {
+		despawn--;
+		if(despawn<=0) remove=true;
+		x+=velX;
+		y+=velY;
+		//Check player colide
+		if(playerDam & StateManager.gameState.world.boss.health!=0) {
+			if( StateManager.gameState.world.player.x+StateManager.gameState.world.player.width>x & 
+					StateManager.gameState.world.player.x<x+width & 
+					StateManager.gameState.world.player.y+StateManager.gameState.world.player.height>y & 
+					StateManager.gameState.world.player.y<y+height) {
+				remove = true;
+				if(StateManager.gameState.world.player.health>0)
+					StateManager.gameState.world.player.health-=damage;
+			}
+		}
+		if(bossDam) {
+			if( StateManager.gameState.world.boss.x+StateManager.gameState.world.boss.width>x 
+					& StateManager.gameState.world.boss.x<x+width 
+					& StateManager.gameState.world.boss.y+StateManager.gameState.world.boss.height>y 
+					& StateManager.gameState.world.boss.y<y+height) {
+				remove = true;
+				if(StateManager.gameState.world.boss.health>0)
+					StateManager.gameState.world.boss.health-=damage;
+			}
+		}
+		if(x<0) remove=true;
+		if(x+width>StateManager.gameState.world.width) remove=true;
+		if(y<0) remove=true;
+		if(y+height>StateManager.gameState.world.height) remove=true;
+	}
+	public void render(Graphics g) {
+		double temp = Math.abs(heightFromGround/2.0);
+		if(temp>width) temp = width;
+		int t = (int)Math.abs(((temp/height)*255)-255);
+		g.setColor(new Color(50,50,50,t)); 
+		g.fillOval(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
+		
+		//g.setColor(Color.green);
+		//g.fillOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		/*
+		if(playerDam) {
+			g.setColor(Color.red);
+			g.drawOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		}
+		if(bossDam) {
+			g.setColor(Color.blue);
+			g.drawOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		}
+		*/
+		if(playerDam) g.drawImage(Assets.assets[1],x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		if(bossDam) g.drawImage(Assets.assets[0],x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+	}
+}
