@@ -20,7 +20,7 @@ import Misc.MouseManager;
 public class Player {
 	public static boolean invincibility=false;
 	int heightFromGround = 20;
-	public double health = 100, maxHealth = 100,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
+	public double health = 100, maxHealth = 100,x=100,y=100,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
 	public Gadget gadget = new TraceTeleporter();
 	public Gun gun = new SMG();
 	public double getLocX() {
@@ -54,25 +54,35 @@ public class Player {
 		if(y<0) y=0;
 	}
 	public void render(Graphics g) {
-		double angle = Math.toDegrees(
-				Mat.getAngle(
-						StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
-						StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
-						MouseManager.mouseX-StateManager.gameState.world.camX,
-						MouseManager.mouseY-StateManager.gameState.world.camY));
-		int incSize = 25;
-		g.drawImage(Assets.assets[25], x+StateManager.gameState.world.camX-incSize/2, y+StateManager.gameState.world.camY-incSize, width+incSize, height+incSize);
-		/*
-		int incSize = 100;
-		g.drawRotatedImage(
-				Assets.assets[24], 
-				x+StateManager.gameState.world.camX-incSize/2, 
-				y+StateManager.gameState.world.camY-incSize/2, 
-				width+incSize, 
-				height+incSize, 
-				angle);
-		*/
-		//g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
-		gadget.render(g);
+		if(Main.scaling) {
+			double camX = StateManager.gameState.world.camX;
+			double camY = StateManager.gameState.world.camY;
+			
+			g.setColor(Color.red);
+			g.fillRect((x+camX)*Main.scale, (y+camY)*Main.scale, width*Main.scale, height*Main.scale);
+			x=Main.baseWidth-width;
+		}else {
+			double angle = Math.toDegrees(
+					Mat.getAngle(
+							StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
+							StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
+							MouseManager.mouseX-StateManager.gameState.world.camX,
+							MouseManager.mouseY-StateManager.gameState.world.camY));
+			int incSize = 25;
+			g.drawImage(Assets.assets[25], x+StateManager.gameState.world.camX-incSize/2, y+StateManager.gameState.world.camY-incSize, width+incSize, height+incSize);
+			/*
+			int incSize = 100;
+			g.drawRotatedImage(
+					Assets.assets[24], 
+					x+StateManager.gameState.world.camX-incSize/2, 
+					y+StateManager.gameState.world.camY-incSize/2, 
+					width+incSize, 
+					height+incSize, 
+					angle);
+					*/
+			if(Main.devMode>0)
+				g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
+			gadget.render(g);
+		}
 	}
 }

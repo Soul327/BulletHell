@@ -59,33 +59,39 @@ public class World {
 		}
 	}
 	public void render(Graphics g){
-		g.setColor(Color.gray.darker());
-		g.fillRect(camX, camY, width, height);
-		camX = player.getLocX(); camY = player.getLocY();
-		camX = Main.width/2-player.x-player.width/2; camY = Main.height/2-player.y-player.height/2;
-		
-		
-		g.setColor(Color.white); g.drawLine(camX, 0, camX, Main.height);
-		g.setColor(Color.white); g.drawLine(0, camY, Main.width, camY);
-		
-		boss.render(g);
-		player.render(g);
-		for(Bullet b:bullet) b.render(g);
-		for(Grenade gg:grenade) gg.render(g);
-		for(Lazer l:lazer) l.render(g);
-		g.setColor(Color.white);
-		g.drawLine(
-				boss.x+camX+boss.width/2,
-				boss.y+camY+boss.height/2,
-				player.x+camX+player.width/2,
-				player.y+camY+player.height/2);
-		for(int t=0;t<particles.size();t++) {
-			particles.get(t).render(g);
-			if(particles.get(t).remove) {
-				particles.remove(t);
-				t--;
+		if(Main.scaling) {
+			camX = 0; camY = 0;
+			
+			width=1600; height=900;
+			
+			g.setColor(Color.gray.darker());
+			g.fillRect(camX*Main.scale, camY*Main.scale, width*Main.scale, height*Main.scale);
+			
+			player.render(g);
+		}else {
+			g.setColor(Color.gray.darker());
+			g.fillRect(camX, camY, width, height);
+			camX = player.getLocX(); camY = player.getLocY();
+			camX = Main.width/2-player.x-player.width/2; camY = Main.height/2-player.y-player.height/2;
+			
+			
+			g.setColor(Color.white); g.drawLine(camX, 0, camX, Main.height);
+			g.setColor(Color.white); g.drawLine(0, camY, Main.width, camY);
+			
+			boss.render(g);
+			player.render(g);
+			for(Bullet b:bullet) b.render(g);
+			for(Grenade gg:grenade) gg.render(g);
+			for(Lazer l:lazer) l.render(g);
+			//Draw line pointing to boss
+			//g.setColor(Color.white); g.drawLine(boss.x+camX+boss.width/2, boss.y+camY+boss.height/2, player.x+camX+player.width/2, player.y+camY+player.height/2);
+			for(int t=0;t<particles.size();t++) {
+				particles.get(t).render(g);
+				if(particles.get(t).remove) {
+					particles.remove(t);
+					t--;
+				}
 			}
 		}
 	}
-	
 }

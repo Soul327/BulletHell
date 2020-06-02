@@ -6,7 +6,7 @@ public class DerpDeHerb extends Gun{
 		accuracy = 100;
 		fireSpeed = 3;
 		bulletSpeed = 3;
-		reloadSpeed = 120;
+		reloadSpeed = 10;
 		magSize = 1;
 		name = "DerpDeHerb";
 		decription = "A powerfull slow firing pistol that shoot a small bullet. Yea, I am not sure either.";

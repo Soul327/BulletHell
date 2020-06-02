@@ -10,3 +10,7 @@ Bullet Collection 1
 Smoke & Fire Animated Particle [16x16]
 	KnoblePersona
 	https://opengameart.org/content/smoke-fire-animated-particle-16x16
+
+Villager_01 - Bleed's Game Art
+	Bleed
+	Bleed - http://remusprites.carbonmade.com/

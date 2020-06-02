@@ -181,5 +181,18 @@ public class MenuState {
 		g.setFont(new Font("Serif",Font.PLAIN,25));
 		g.drawString("  FIGHT", 20, line);
 		line+=30;
+		
+		g.setColor(Color.white); 
+		g.drawString("WASD - Move",20,Main.Main.height-40);
+		g.drawString("R - Reload",20,Main.Main.height-40-30);
+		g.drawString("LMB - Shoot",20,Main.Main.height-40-60);
+		g.drawString("RMB - Use Gadget",20,Main.Main.height-40-90);
+		g.setColor(Color.gray); g.drawString("Game Controls",0,Main.Main.height-40-120);
+		g.setColor(Color.white); 
+		g.drawString("Arrow keys - Select",20,Main.Main.height-40-150);
+		g.drawString("Enter - Fight",20,Main.Main.height-40-180);
+		g.setColor(Color.gray);
+		g.drawString("Menu Controls",0,Main.Main.height-40-210);
+		
 	}
 }

@@ -25,7 +25,8 @@ import Misc.Prerender;
 
 public class Main implements Runnable {
 	
-	public static int width=0, height=0, devMode = 0, maxFPS = 144, baseWidth=1500, baseHeight=800;
+	public static boolean scaling = false;
+	public static int width=0, height=0, devMode = 0, maxFPS = 144, baseWidth=1600, baseHeight=900;
 	public static double scale = 1,fps=0;
 	public static ArrayList<String> debugMessages = new ArrayList<String>();
 	
@@ -87,8 +88,9 @@ public class Main implements Runnable {
 		keyManager.tick();
 		if(KeyManager.keyRelease(KeyEvent.VK_EQUALS) & devMode<1) devMode++;
 		if(KeyManager.keyRelease(KeyEvent.VK_MINUS) & devMode>0) devMode--;
-		if(KeyManager.keyRelease(KeyEvent.VK_F1)) Player.invincibility =! Player.invincibility;
-		
+		if(devMode>0) {
+			if(KeyManager.keyRelease(KeyEvent.VK_F1)) Player.invincibility =! Player.invincibility;
+		}
 		stateManager.tick();
 		
 		debugMessages = new ArrayList<String>();
