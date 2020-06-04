@@ -1,7 +1,9 @@
 package Gun;
 
 import GameState.Bullet;
+import GameState.Player;
 import GameState.World;
+import Main.Main;
 import Main.StateManager;
 import Misc.Mat;
 import Misc.MouseManager;
@@ -17,12 +19,22 @@ public abstract class Gun {
 	}
 	public void fire() {
 		if(mag>=ammoUse & fireTimmer<=0 & reloadTimmer<=0) {
-			double angle = -Math.toDegrees( 
-					Mat.getAngle(
-							StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
-							StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
-							MouseManager.mouseX-StateManager.gameState.world.camX,
-							MouseManager.mouseY-StateManager.gameState.world.camY));
+			double angle = 0;
+			if(Main.scaling) {
+				 angle = -Math.toDegrees(
+						Mat.getAngle(
+								(StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2+StateManager.gameState.world.camX)*Main.scale, 
+								(StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2+StateManager.gameState.world.camY)*Main.scale,
+								MouseManager.mouseX,
+								MouseManager.mouseY));
+			}else {
+				angle = -Math.toDegrees(
+						Mat.getAngle(
+								StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
+								StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
+								MouseManager.mouseX-StateManager.gameState.world.camX,
+								MouseManager.mouseY-StateManager.gameState.world.camY));
+			}
 			double acc = (Math.random()*(100-accuracy)-(100-accuracy)/2) / (accuracy/10);
 			angle += acc;
 			Bullet bul = new Bullet(bulletSpeed,angle);
@@ -35,13 +47,13 @@ public abstract class Gun {
 			StateManager.gameState.world.bullet.add(bul);
 			activate();
 			mag -= ammoUse;
-			fireTimmer=(Main.Main.maxFPS*fireSpeed)/60;
+			fireTimmer=(Main.maxFPS*fireSpeed)/60;
 		}
 	}
 	public void activate() {}
 	public void tick() {
 		if(mag<ammoUse & reloadTimmer==0) {
-			reloadTimmer=Main.Main.maxFPS*reloadSpeed;
+			reloadTimmer=Main.maxFPS*reloadSpeed;
 		}
 		if(reloadTimmer>0) {
 			reloadTimmer--;

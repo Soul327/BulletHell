@@ -23,6 +23,7 @@ public class Graphics {
 	public void setColor(Color color) { g.setColor(color); }
 	public void drawRect(double x, double y, double width, double height) {
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			width = width*scale;
@@ -33,6 +34,7 @@ public class Graphics {
 	}
 	public void fillRect(double x, double y, double width, double height) {
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			width = width*scale;
@@ -42,6 +44,7 @@ public class Graphics {
 	}
 	public void drawOval(double x, double y, double width, double height) { 
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			width = width*scale;
@@ -51,6 +54,7 @@ public class Graphics {
 	}
 	public void fillOval(double x, double y, double width, double height) {
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			width = width*scale;
@@ -59,6 +63,7 @@ public class Graphics {
 		g.fillOval((int)x, (int)y, (int)width, (int)height); }
 	public void drawCircle(double x, double y, double size) {
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			size = size*scale;
@@ -67,6 +72,7 @@ public class Graphics {
 	}
 	public void drawCircle(Point p, double size) {
 		if(scalable) {
+			scale = Main.Main.scale;
 			p.setLocation(p.getX()*scale, p.getY()*scale);
 			size = size * 2;
 		}
@@ -74,6 +80,7 @@ public class Graphics {
 	}
 	public void drawCenterCircle(double x, double y, double size) { 
 		if(scalable) {
+			scale = Main.Main.scale;
 			x = x*scale;
 			y = y*scale;
 			size = size*scale;
@@ -122,6 +129,16 @@ public class Graphics {
 			drawImage(image,x,y,width,height);
 	}
 	public void drawString(String str, double x, double y) { g.drawString(str, (int)x, (int)y+g.getFontMetrics().getHeight()); }
+	public void drawOutlinedString(String str, double x, double y) {
+		int borderAmount = 1;
+		g.setColor(Color.black);
+		drawString(str, x+borderAmount, y);
+		drawString(str, x-borderAmount, y);
+		drawString(str, x, y+borderAmount);
+		drawString(str, x, y-borderAmount);
+		g.setColor(Color.white);
+		drawString(str, x, y);
+	}
 	public void drawLine(double x1, double y1, double x2, double y2) {
 		if(scalable) {
 			x1 = x1*scale;

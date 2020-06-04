@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import Gadget.Gadget;
+import Gadget.Teleporter;
 import Gadget.TraceTeleporter;
 import Gun.Gun;
 import Gun.SMG;
@@ -20,7 +21,7 @@ import Misc.MouseManager;
 public class Player {
 	public static boolean invincibility=false;
 	int heightFromGround = 20;
-	public double health = 100, maxHealth = 100,x=100,y=100,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
+	public double health = 100, maxHealth = 100,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
 	public Gadget gadget = new TraceTeleporter();
 	public Gun gun = new SMG();
 	public double getLocX() {
@@ -34,7 +35,7 @@ public class Player {
 		if(KeyManager.keys[KeyEvent.VK_S]) y+=speed;
 		if(KeyManager.keys[KeyEvent.VK_A]) x-=speed;
 		if(KeyManager.keys[KeyEvent.VK_D]) x+=speed;
-		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
+		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize & gun.reloadTimmer==0) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
 		if(KeyManager.keys[KeyEvent.VK_SPACE]) {//Roll
 			
 		}
@@ -43,7 +44,7 @@ public class Player {
 		gadget.tick();
 		gun.tick();
 		if(health <= 0 & !invincibility) {
-			System.out.println(StateManager.gameState.world.boss.health);
+			//System.out.println(StateManager.gameState.world.boss.health);
 			StateManager.gameState = new GameState();
 			StateManager.state = 0;
 			StateManager.menuState.init();
@@ -58,9 +59,13 @@ public class Player {
 			double camX = StateManager.gameState.world.camX;
 			double camY = StateManager.gameState.world.camY;
 			
-			g.setColor(Color.red);
-			g.fillRect((x+camX)*Main.scale, (y+camY)*Main.scale, width*Main.scale, height*Main.scale);
-			x=Main.baseWidth-width;
+			int incSize = 25;
+			g.drawImage(Assets.assets[25], (x+camX-incSize/2)*Main.scale, (y+camY-incSize)*Main.scale, (width+incSize)*Main.scale, (height+incSize)*Main.scale);
+			
+			g.setColor(Color.white);
+			if(Main.devMode>0)
+				g.drawRect((x+camX)*Main.scale, (y+camY)*Main.scale, width*Main.scale, height*Main.scale);
+			gadget.render(g);
 		}else {
 			double angle = Math.toDegrees(
 					Mat.getAngle(

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import GameState.Grenade;
 import GameState.World;
+import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.Mat;
@@ -129,17 +130,39 @@ public class NightsRow extends Boss{
 	}
 	
 	public void render(Graphics g) {
-		//Draw Shadow
-		double temp = Math.abs(heightFromGround/2.0);
-		if(temp>width) temp = width;
-		int t = (int)Math.abs(((temp/height)*255)-255);
-		g.setColor(new Color(50,50,50,t)); 
-		g.fillRect(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
-			
-		g.setColor(Color.red);
-		g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
-		g.setColor(Color.black);
-		g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		double scale = Main.scale;
+		if(Main.scaling) {
+			//Draw Shadow
+			double temp = Math.abs(heightFromGround/2.0);
+			if(temp>width) temp = width;
+			int t = (int)Math.abs(((temp/height)*255)-255);
+			g.setColor(new Color(50,50,50,t)); 
+			g.fillRect(
+					(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)))*scale, 
+					(y+StateManager.gameState.world.camY+heightFromGround+temp/2)*scale, width-temp, height-temp);
+				
+			g.setColor(Color.red);
+			g.fillRect(
+					(x+StateManager.gameState.world.camX)*scale, 
+					(y+StateManager.gameState.world.camY)*scale, width*scale, height*scale);
+			g.setColor(Color.black);
+			g.drawRect(
+					(x+StateManager.gameState.world.camX)*scale, 
+					(y+StateManager.gameState.world.camY)*scale, width*scale, height*scale);
+		
+		}else {
+			//Draw Shadow
+			double temp = Math.abs(heightFromGround/2.0);
+			if(temp>width) temp = width;
+			int t = (int)Math.abs(((temp/height)*255)-255);
+			g.setColor(new Color(50,50,50,t)); 
+			g.fillRect(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
+				
+			g.setColor(Color.red);
+			g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+			g.setColor(Color.black);
+			g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		}
 	}
 	
 }

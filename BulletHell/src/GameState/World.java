@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 import Boss.Boss;
 import Boss.NightsRow;
+import Boss.Patches;
 import Boss.Robbin;
 import Boss.Spy;
 import Misc.Graphics;
 import Misc.KeyManager;
 import Misc.Mat;
+import Misc.MouseManager;
 import Particle.Particle;
 import Particle.Smoke;
 import Main.Main;
@@ -30,7 +32,7 @@ public class World {
 	
 	public World() {
 		player = new Player();
-		boss = new NightsRow();
+		boss = new Robbin();
 		timeOfDay = Math.random()*360;
 	}
 	public void tick(){
@@ -60,14 +62,18 @@ public class World {
 	}
 	public void render(Graphics g){
 		if(Main.scaling) {
-			camX = 0; camY = 0;
+			camX = -player.x-player.width/2+Main.baseWidth/2;
+			camY = -player.y-player.height/2+Main.baseHeight/2;
 			
-			width=1600; height=900;
+			//camX=0; camY=0;
 			
 			g.setColor(Color.gray.darker());
 			g.fillRect(camX*Main.scale, camY*Main.scale, width*Main.scale, height*Main.scale);
 			
+			boss.render(g);
 			player.render(g);
+			for(Bullet b:bullet) b.render(g);
+			for(Grenade gg:grenade) gg.render(g);
 		}else {
 			g.setColor(Color.gray.darker());
 			g.fillRect(camX, camY, width, height);

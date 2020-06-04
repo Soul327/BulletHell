@@ -7,7 +7,8 @@ import Misc.MouseManager;
 public class SMG extends Gun{
 	public SMG() {
 		damage = 5;
-		accuracy = 70;
+		//accuracy = 70;
+		accuracy = 100;
 		fireSpeed = 2;
 		reloadSpeed = .9;
 		magSize = 25;

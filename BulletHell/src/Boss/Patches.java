@@ -24,16 +24,38 @@ public class Patches extends Boss{
 	}
 	public void tick2() {
 		health = maxHealth;
-		if(KeyManager.keyRelease(KeyEvent.VK_0)) { ani++; System.out.println(ani); }
 	}
 	public void render(Graphics g) {
-		int off = 100;
+		double camX = StateManager.gameState.world.camX;
+		double camY = StateManager.gameState.world.camY;
+		double scale = Main.scale;
 		
-		if(Math.random()<.05) ani++;
-		if(ani>Assets.anim.get(0).size()-1) ani=0;
-		g.drawImage(Assets.anim.get(0).get(ani), x+StateManager.gameState.world.camX -off/2, y+StateManager.gameState.world.camY+heightFromGround-off/2, width+off, height+off);
-		//g.setColor(Color.black);
-		if(Main.devMode>0)
-			g.drawRect(x+StateManager.gameState.world.camX , y+StateManager.gameState.world.camY+heightFromGround, width, height);
+		if(Main.scaling) {
+			int off = 100;
+			
+			if(Math.random()<.05) ani++;
+			if(ani>Assets.anim.get(0).size()-1) ani=0;
+			g.drawImage(Assets.anim.get(0).get(ani), 
+					(x+camX-off/2)*scale,
+					(y+camY-off/2)*scale,
+					(width+off)*scale, 
+					(height+off)*scale);
+			g.setColor(Color.black);
+			if(Main.devMode>0)
+				g.drawRect(
+						(x+camX)*scale,
+						(y+camY)*scale,
+						width*scale, 
+						height*scale);
+		}else {
+			int off = 100;
+			
+			if(Math.random()<.05) ani++;
+			if(ani>Assets.anim.get(0).size()-1) ani=0;
+			g.drawImage(Assets.anim.get(0).get(ani), x+StateManager.gameState.world.camX -off/2, y+StateManager.gameState.world.camY+heightFromGround-off/2, width+off, height+off);
+			//g.setColor(Color.black);
+			if(Main.devMode>0)
+				g.drawRect(x+StateManager.gameState.world.camX , y+StateManager.gameState.world.camY+heightFromGround, width, height);
+		}
 	}
 }

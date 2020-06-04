@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import GameState.Bullet;
 import GameState.World;
+import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.MouseManager;
@@ -78,7 +79,16 @@ public class Robbin extends Boss{
 		}
 	}
 	public void render(Graphics g) {
-	//Draw Shadow
+		if(Main.scaling) {
+			g.setColor(Color.red); 
+			g.fillRect(
+					(x+StateManager.gameState.world.camX)*Main.scale,
+					(y+StateManager.gameState.world.camY)*Main.scale,
+					(width)*Main.scale,
+					(height)*Main.scale);
+			
+		}else {
+		//Draw Shadow
 		double temp = Math.abs(heightFromGround/2.0);
 		if(temp>width) temp = width;
 		int t = (int)Math.abs(((temp/height)*255)-255);
@@ -86,5 +96,6 @@ public class Robbin extends Boss{
 		g.fillRect(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
 		g.setColor(Color.red); g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 		g.setColor(Color.black); g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+		}
 	}
 }

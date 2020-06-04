@@ -3,19 +3,14 @@ package Main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import GameState.Player;
 import Misc.Assets;
@@ -25,8 +20,8 @@ import Misc.Prerender;
 
 public class Main implements Runnable {
 	
-	public static boolean scaling = false;
-	public static int width=0, height=0, devMode = 0, maxFPS = 144, baseWidth=1600, baseHeight=900;
+	public static boolean scaling = true;
+	public static int width=0, height=0, devMode = 0, maxFPS = 60, baseWidth=1366, baseHeight=768;
 	public static double scale = 1,fps=0;
 	public static ArrayList<String> debugMessages = new ArrayList<String>();
 	
@@ -46,8 +41,8 @@ public class Main implements Runnable {
 	}
 	
 	public Main(){
-		Main.width = 1280; Main.height = 800;
-		//Main.width = baseWidth; Main.height = baseHeight;
+		Main.width = baseWidth; Main.height = baseHeight;
+		Main.width = 1366; Main.height = 768;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 		Assets.init();
@@ -75,7 +70,7 @@ public class Main implements Runnable {
 		frame.pack();
 		frame.addKeyListener(keyManager);
 		
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		width=canvas.getWidth();
 		height=canvas.getHeight();
@@ -90,6 +85,7 @@ public class Main implements Runnable {
 		if(KeyManager.keyRelease(KeyEvent.VK_MINUS) & devMode>0) devMode--;
 		if(devMode>0) {
 			if(KeyManager.keyRelease(KeyEvent.VK_F1)) Player.invincibility =! Player.invincibility;
+			if(KeyManager.keyRelease(KeyEvent.VK_F2)) scaling =! scaling;
 		}
 		stateManager.tick();
 		
