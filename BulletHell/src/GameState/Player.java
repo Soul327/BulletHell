@@ -55,6 +55,7 @@ public class Player {
 		if(y<0) y=0;
 	}
 	public void render(Graphics g) {
+		g.scalable = false;
 		if(Main.scaling) {
 			double camX = StateManager.gameState.world.camX;
 			double camY = StateManager.gameState.world.camY;

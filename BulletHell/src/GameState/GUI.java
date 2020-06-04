@@ -24,6 +24,7 @@ public class GUI {
 		}
 	}
 	public void renderBossHealth(Graphics g) {
+		g.scalable = false;
 		int temp = (int)(Main.width/2.2);
 		int width = (int)(Main.width*0.1382306477);
 		int height = (int)(Main.height*0.0264550898);

@@ -26,7 +26,7 @@ import Misc.Graphics;
 import Misc.KeyManager;
 
 public class MenuState {
-	int select = 1,gunSelect = 0,gadgetSelect = 0,bossSelect = 0;
+	int select = 0,gunSelect = 0,gadgetSelect = 0,bossSelect = 0;
 	ArrayList<Gadget> gadget = new ArrayList<Gadget>();
 	ArrayList<Gun> guns = new ArrayList<Gun>();
 	ArrayList<Boss> bosses = new ArrayList<Boss>();

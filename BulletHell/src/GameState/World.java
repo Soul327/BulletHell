@@ -32,7 +32,7 @@ public class World {
 	
 	public World() {
 		player = new Player();
-		boss = new Robbin();
+		boss = new Spy();
 		timeOfDay = Math.random()*360;
 	}
 	public void tick(){

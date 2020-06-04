@@ -94,7 +94,7 @@ public class Spy extends Boss{
 			}
 			actTick++;
 		}else {
-			/*
+			//*
 			act = (int)(Math.random()*10);
 			act = 1;
 			actTick = 0;
@@ -104,22 +104,18 @@ public class Spy extends Boss{
 	}
 	
 	public void render(Graphics g) {
-		//Draw Shadow
-		double temp = Math.abs(heightFromGround/2.0);
-		if(temp>width) temp = width;
-		int t = (int)Math.abs(((temp/height)*255)-255);
-		g.setColor(new Color(50,50,50,t)); 
-		g.fillRect(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
+		g.scalable = true;
 		//Draw Char
-		g.setColor(Color.red);
+		g.setColor(new Color(150,150,150));
 		g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 		g.setColor(Color.black);
 		g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 		//Draw Fakes
 		for(int z=0;z<point.length;z++) {
 			if(point[z]==null) continue;
-			g.setColor(new Color(255,0,0,200));
+			g.setColor(new Color(150,150,150,200));
 			g.fillRect(point[z].getX()+StateManager.gameState.world.camX,point[z].getY()+StateManager.gameState.world.camY, width, height);
 		}
+		g.scalable = true;
 	}
 }
