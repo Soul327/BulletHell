@@ -17,19 +17,7 @@ public class Assets {
 	public static ArrayList<ArrayList<BufferedImage>> anim = new ArrayList<ArrayList<BufferedImage> >(); 
 	
 	public static void init(){
-		File actual = new File("res/Top_Down_Survivor/rifle/idle/");
 		//for( File f : actual.listFiles()) System.out.println( f.getName()+"\n  "+f.getAbsolutePath());
-		for(int x=0;x<=19;x++)
-			ani[0][x] = ImageLoader.loadImage("res/Top_Down_Survivor/rifle/idle/survivor-idle_rifle_"+x+".png");
-		
-		int x=0;
-		for( File f : new File("res/Top_Down_Survivor/rifle/idle/").listFiles())
-			ani[1][x++] = ImageLoader.loadImage(f.getPath());
-		
-		x=0;
-		for( File f : new File("res/Top_Down_Survivor/rifle/shoot/").listFiles())
-			ani[2][x++] = ImageLoader.loadImage(f.getPath());
-			
 		
 		//127 93
 		SpriteSheet sheet= new SpriteSheet(ImageLoader.loadImage("res/M484BulletCollection1.png"));
@@ -66,8 +54,6 @@ public class Assets {
 		assets[23] = sheet.crop(455, 85, 13, 49);//Red
 		assets[23] = sheet.crop(472, 85, 13, 49);//Yellow
 		assets[23] = sheet.crop(489, 85, 13, 49);//Green
-		
-		assets[24] = ImageLoader.loadImage("res/Player.png");
 		
 		sheet= new SpriteSheet(ImageLoader.loadImage("res/player2.png"));
 		assets[25] = sheet.crop( 42,41, 91, 115);

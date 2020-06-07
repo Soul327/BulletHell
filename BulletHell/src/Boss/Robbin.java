@@ -14,7 +14,7 @@ public class Robbin extends Boss{
 	public Robbin() {
 		name = "Robbin, the Asshole";
 		des = "He's just a dick";
-		health = 1049+698;
+		health = 1800;
 		maxHealth = health;
 	}
 	boolean first = true;
@@ -55,15 +55,17 @@ public class Robbin extends Boss{
 					break;
 				//*
 				case 5://Mine field
-					temp[0]++;
+					if(actTick%10==0) temp[0]++;
 					switch((int)temp[0]) {
 						case 0:
-							
+							star(10, 0);
+							break;
+						case 1:
+							star(10, 45);
 							break;
 					}
-					if(temp[0]>10)
-						temp[0] = 0;
-					if(actTick>60*10) inAct = false;
+					if(temp[0]>1) temp[0] = 0;
+					if(actTick>60*1) inAct = false;
 					break;
 				//*/
 				default:inAct = false;
@@ -72,7 +74,7 @@ public class Robbin extends Boss{
 		}else {
 			temp = new double[10];
 			act = (int)(Math.random()*10);
-			//act = 5;
+			act = 5;
 			actTick = 0;
 			inAct = true;
 		}

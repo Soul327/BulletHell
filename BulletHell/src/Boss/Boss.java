@@ -23,6 +23,7 @@ public abstract class Boss {
 		width = 100;
 		height = 100;
 	}
+	
 	int tickTime = 0;
 	public void tick() {
 		if(dead) return;
@@ -40,13 +41,16 @@ public abstract class Boss {
 		}
 		tiedTick();
 	}
+	
 	boolean inAct = false;
 	int act = 0, actTick = 0;
 	double temp[] = new double[10];
+	public void tick2() {};//This will tick 60 times per second
+	
+	public void tiedTick() {};//Tied Tick is tied to the frame rate of the game
 	public void bootup(int tick) {}
-	public void tick2() {};
-	public void tiedTick() {};
 	public void render(Graphics g) {
+		//Default render
 		g.setColor(Color.red); g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 		g.setColor(Color.black); g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 	}
