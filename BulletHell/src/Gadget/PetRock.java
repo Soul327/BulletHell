@@ -33,6 +33,7 @@ public class PetRock extends Gadget{
 		speech.add("I like your approach now lets see your departure");
 		speech.add("Set me down, I can take him!");
 		speech.add("Dont get bitter just get better");
+		speech.add("Idiot");
 	}
 	public void activate() {
 		sel = (int)(Math.random()*speech.size());
