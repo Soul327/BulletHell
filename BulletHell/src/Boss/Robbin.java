@@ -17,32 +17,30 @@ public class Robbin extends Boss{
 		health = 1049+698;
 		maxHealth = health;
 	}
-	boolean inAct = false;
-	int act = 0, actTick = 0;
-	double temp[] = new double[10];
 	boolean first = true;
 	public void tick2() {
 		if(first) {
 			first = false;
-			MusicPlayer.playerMusic("C:\\Users\\souls\\Downloads\\Game.wav");
+			MusicPlayer.playerMusic("res/Game.wav");
 		}
 		if(inAct) {
 			switch(act) {
-				case 0:
+				case 0://Spin and shoot
 					star(5, actTick);
 					if(actTick>200) {
 						if(Math.random()>.5) inAct = false;
 						else inAct = true;
 					}
 					break;
-				case 1:
+				case 1://Spin and shoot
 					star(5, -actTick);
 					if(actTick>200) {
 						if(Math.random()>.5) inAct = false;
 						else inAct = true;
 					}
 					break;
-				case 2:if(actTick>60) inAct = false; break;
+				case 2://Wait
+					if(actTick>60) inAct = false; break;
 				case 3:
 					if(actTick==0 & health<=maxHealth/3) star(90, 0);
 					if(actTick==30) {
@@ -51,15 +49,30 @@ public class Robbin extends Boss{
 					}
 					if(actTick>60) inAct = false;
 					break;
-				case 4:
+				case 4://Circle
 					if(actTick==0) star(20, 0);
 					if(actTick>60) inAct = false;
 					break;
+				//*
+				case 5://Mine field
+					temp[0]++;
+					switch((int)temp[0]) {
+						case 0:
+							
+							break;
+					}
+					if(temp[0]>10)
+						temp[0] = 0;
+					if(actTick>60*10) inAct = false;
+					break;
+				//*/
 				default:inAct = false;
 			}
 			actTick++;
 		}else {
+			temp = new double[10];
 			act = (int)(Math.random()*10);
+			//act = 5;
 			actTick = 0;
 			inAct = true;
 		}
