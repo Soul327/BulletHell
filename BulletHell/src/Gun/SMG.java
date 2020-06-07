@@ -11,7 +11,7 @@ public class SMG extends Gun{
 		accuracy = 100;
 		fireSpeed = 2;
 		reloadSpeed = .9;
-		magSize = 25;
+		magSize = 2500;
 		bulletSpeed = 15;
 		name = "SMG";
 		decription = "A SMG.";

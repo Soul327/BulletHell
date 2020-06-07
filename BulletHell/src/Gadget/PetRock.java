@@ -19,6 +19,7 @@ public class PetRock extends Gadget{
 		speech.add("Don't miss");
 		speech.add("Just win already");
 		speech.add("My mother could take more damage");
+		speech.add("Death is a great way to learn!");
 	}
 	public void activate() {
 		sel = (int)(Math.random()*speech.size());

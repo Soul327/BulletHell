@@ -21,12 +21,7 @@ public abstract class Gun {
 		if(mag>=ammoUse & fireTimmer<=0 & reloadTimmer<=0) {
 			double angle = 0;
 			if(Main.scaling) {
-				 angle = -Math.toDegrees(
-						Mat.getAngle(
-								(StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2+StateManager.gameState.world.camX)*Main.scale, 
-								(StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2+StateManager.gameState.world.camY)*Main.scale,
-								MouseManager.mouseX,
-								MouseManager.mouseY));
+				 angle = -Math.toDegrees( GameState.GameState.getPlayerMouseAngle() );
 			}else {
 				angle = -Math.toDegrees(
 						Mat.getAngle(

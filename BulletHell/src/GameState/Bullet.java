@@ -71,31 +71,14 @@ public class Bullet {
 					(width-temp)*scale, (height-temp)*scale);
 			
 			//Draw bullet
-			if(playerDam) g.drawImage(Assets.assets[1], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
 			if(bossDam) g.drawImage(Assets.assets[0], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
+			if(playerDam) g.drawImage(Assets.assets[1], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
 			
-		}else {
-			double temp = Math.abs(heightFromGround/2.0);
-			if(temp>width) temp = width;
-			int t = (int)Math.abs(((temp/height)*255)-255);
-			g.setColor(new Color(50,50,50,t)); 
-			g.fillOval(x+StateManager.gameState.world.camX+temp/2 + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)), y+StateManager.gameState.world.camY+heightFromGround+temp/2, width-temp, height-temp);
-			
-			//g.setColor(Color.green);
-			//g.fillOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
-			/*
-			if(playerDam) {
-				g.setColor(Color.red);
-				g.drawOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
-			}
-			if(bossDam) {
-				g.setColor(Color.blue);
-				g.drawOval(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
-			}
-			*/
-			if(playerDam) g.drawImage(Assets.assets[1],x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
-			if(bossDam) g.drawImage(Assets.assets[0],x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
+			g.setColor(Color.red);
+			g.drawCircle(
+					(x+StateManager.gameState.world.camX)*Main.scale,
+					(y+StateManager.gameState.world.camY)*Main.scale,
+					width*Main.scale);
 		}
 	}
-		
 }

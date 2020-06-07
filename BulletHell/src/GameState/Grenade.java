@@ -3,6 +3,8 @@ package GameState;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import Boss.Boss;
+import Boss.NightsRow;
 import Main.Main;
 import Main.StateManager;
 import Misc.Assets;
@@ -55,7 +57,11 @@ public class Grenade {
 				gg.type = 2;
 				gg.x = x+width/2-gg.width/2;
 				gg.y = y+height/2-gg.height/2;
-				StateManager.gameState.world.grenade.add(gg);
+				Boss boss = StateManager.gameState.world.boss;
+				if(boss instanceof NightsRow) {
+					NightsRow nite = (NightsRow) boss;
+					nite.grenade.add(gg);
+				}
 			}
 		}
 		if(fuse==0 & type == 4) {
@@ -67,7 +73,11 @@ public class Grenade {
 				gg.damage = 10;
 				gg.x = x+width/2-gg.width/2;
 				gg.y = y+height/2-gg.height/2;
-				StateManager.gameState.world.grenade.add(gg);
+				Boss boss = StateManager.gameState.world.boss;
+				if(boss instanceof NightsRow) {
+					NightsRow nite = (NightsRow) boss;
+					nite.grenade.add(gg);
+				}
 			}
 		}
 		if(fuse==0) {

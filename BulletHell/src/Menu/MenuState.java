@@ -24,6 +24,7 @@ import Gun.SMG;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.KeyManager;
+import Misc.MusicPlayer;
 
 public class MenuState {
 	int select = 0,gunSelect = 0,gadgetSelect = 0,bossSelect = 0;
@@ -55,6 +56,8 @@ public class MenuState {
 		guns.add(new SMG());
 	}
 	public void tick() {
+		if(MusicPlayer.clip!=null)
+			MusicPlayer.clip.stop();
 		if(KeyManager.keyRelease(KeyEvent.VK_UP)) select--;
 		if(KeyManager.keyRelease(KeyEvent.VK_DOWN)) select++;
 		if(KeyManager.keyRelease(KeyEvent.VK_ENTER)) {

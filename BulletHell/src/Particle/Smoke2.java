@@ -28,9 +28,20 @@ public class Smoke2 extends Particle{
 			break;
 		}
 		if(width!=image.getWidth() | height!=image.getHeight()) image = image.getSubimage(0, 0, width, height);
+		maxLife = Main.Main.maxFPS*30;
+		life = maxLife;
 	}
 	
+	
 	public void render(Graphics g) {
+		if(maxLife!=-1) {
+			life--;
+			if(life<=0)
+				remove = true;
+		}
+		
+		g.scalable = true;
 		g.drawImage(image, x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, image.getWidth(), image.getHeight());
+		g.scalable = false;
 	}
 }

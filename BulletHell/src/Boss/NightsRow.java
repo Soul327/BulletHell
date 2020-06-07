@@ -1,6 +1,7 @@
 package Boss;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import GameState.Grenade;
 import GameState.World;
@@ -12,6 +13,7 @@ import Misc.MouseManager;
 
 public class NightsRow extends Boss{
 	double grenadeRange = 400;
+	public ArrayList<Grenade> grenade = new ArrayList<Grenade>();
 	
 	public NightsRow() {
 		name = "Nite Row";
@@ -22,6 +24,17 @@ public class NightsRow extends Boss{
 		width = 75;
 		height = 75;
 	}
+	public void tiedTick() {
+		//Tick Grenades
+		for(int a=0;a<grenade.size();a++) {
+			grenade.get(a).tick();
+			if(grenade.get(a).remove) {
+				grenade.remove(a);
+				a--;
+			}
+		}
+	}
+	
 	int delay = 120;
 	public void tick2() {
 		if(Mat.distance(x, y, StateManager.gameState.world.player.x, StateManager.gameState.world.player.y)>grenadeRange/2) {
@@ -44,7 +57,7 @@ public class NightsRow extends Boss{
 								//if(Math.random()<.5) gg.type = 2;
 								gg.x = Math.random() * (1600-gg.width);
 								gg.y = Math.random() * (900-gg.height);
-								StateManager.gameState.world.grenade.add(gg);
+								grenade.add(gg);
 							}
 					}
 					if(actTick>1 & actTick<10) y+=1;
@@ -56,7 +69,7 @@ public class NightsRow extends Boss{
 					if(actTick%10==0) {
 						Grenade gg = toss();
 						if(Math.random()>(health/maxHealth)+.25) gg.type = 2;
-						StateManager.gameState.world.grenade.add(gg);
+						grenade.add(gg);
 					}
 					if(actTick>60 + delay) inAct = false;
 					break;
@@ -83,7 +96,7 @@ public class NightsRow extends Boss{
 						gg.y = this.y+height/2;
 						gg.setRadAngle(distance, angle);
 						//*/
-						StateManager.gameState.world.grenade.add(gg);
+						grenade.add(gg);
 					}
 					if(actTick>60 + delay) inAct = false;
 					break;
@@ -91,7 +104,7 @@ public class NightsRow extends Boss{
 					if(actTick==0 & health<=maxHealth/3) {
 						Grenade gg = toss();
 						gg.type = 3;
-						StateManager.gameState.world.grenade.add(gg);
+						grenade.add(gg);
 					}
 					if(actTick==30) {
 						x = (int)(Math.random()*(1600-width));
@@ -149,7 +162,7 @@ public class NightsRow extends Boss{
 			g.drawRect(
 					(x+StateManager.gameState.world.camX)*scale, 
 					(y+StateManager.gameState.world.camY)*scale, width*scale, height*scale);
-		
+			for(Grenade gg:grenade) gg.render(g);
 		}else {
 			//Draw Shadow
 			double temp = Math.abs(heightFromGround/2.0);

@@ -101,7 +101,7 @@ public class Graphics {
 			y = y*scale;
 			size = size*scale;
 		}
-		g.fillOval((int)(x-size/2), (int)(y-size/2), (int)size, (int)size);
+		g.fillOval((int)(x+size/2), (int)(y+size/2), (int)size, (int)size);
 	}
 	public void fillCircle(Point p, double size) {
 		if(scalable) {
@@ -148,6 +148,17 @@ public class Graphics {
 		}
 		g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
 	}
+	public void drawRLine(double x1, double y1, double x2, double y2) {
+		if(scalable) {
+			x1 = x1*scale;
+			y1 = y1*scale;
+			x2 = x2*scale;
+			y2 = y2*scale;
+		}
+		x2 = x2+x1;
+		y2 = y2+y1;
+		g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
+	}
 	public void drawArc(double x, double y, double width, double height, double startAngle, double arcAngle) { 
 		if(scalable) {
 			x = x*scale;
@@ -162,6 +173,15 @@ public class Graphics {
 	public int getFontHeight() { return g.getFontMetrics().getHeight(); }
 	public FontMetrics getFontMetrics() { return g.getFontMetrics(); }
 	public void drawShape(Shape shape) { g.draw(shape); }
+	public void drawPoly(Polygon shape) { 
+		if(scalable) {
+			for(int z=0;z<shape.npoints;z++) {
+				shape.xpoints[z] = (int)(shape.xpoints[z] * scale);
+				shape.ypoints[z] = (int)(shape.ypoints[z] * scale);
+			}
+		}
+		g.draw(shape);
+	}
 	public Polygon rotatePolygon(Polygon p1,double angle,Point center) {
 		Polygon newPolygon = new Polygon();
 		for(int z=0;z<p1.npoints;z++) {

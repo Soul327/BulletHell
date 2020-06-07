@@ -24,6 +24,11 @@ public class Player {
 	public double health = 100, maxHealth = 100,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
 	public Gadget gadget = new TraceTeleporter();
 	public Gun gun = new SMG();
+	
+	public Player() {
+		x = 800 - width/2;
+		y = 600 + height/2;
+	}
 	public double getLocX() {
 		return Main.width/2-(x*Main.scale)-(width*Main.scale)/2;
 	}
@@ -85,10 +90,19 @@ public class Player {
 					width+incSize, 
 					height+incSize, 
 					angle);
-					*/
+			*/
 			if(Main.devMode>0)
 				g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
 			gadget.render(g);
 		}
+	}
+	public boolean contains(double x, double y) {
+		if( this.x+this.width>x & 
+				this.x<x+width & 
+				this.y+this.height>y & 
+				this.y<y+height) {
+			return true;
+		}else
+			return false;
 	}
 }

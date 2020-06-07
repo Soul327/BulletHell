@@ -38,18 +38,21 @@ public abstract class Boss {
 		if(tickTime>Main.Main.maxFPS/60.0) {//Runs at 60 FPS
 			tickTime=0;
 		}
+		tiedTick();
 	}
 	boolean inAct = false;
 	int act = 0, actTick = 0;
 	double temp[] = new double[10];
+	public void bootup(int tick) {}
 	public void tick2() {};
+	public void tiedTick() {};
 	public void render(Graphics g) {
 		g.setColor(Color.red); g.fillRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 		g.setColor(Color.black); g.drawRect(x+StateManager.gameState.world.camX, y+StateManager.gameState.world.camY, width, height);
 	}
 	public void star(int points, double angle) {
 		for(int z=0;z<points;z++) {
-			Bullet bul = new Bullet(2,(360/points)*z+angle);
+			Bullet bul = new Bullet(4,(360/points)*z+angle);
 			bul.damage = 10;
 			bul.x = x+width/2-bul.width/2;
 			bul.y = y+height/2-bul.height/2;

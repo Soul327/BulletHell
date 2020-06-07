@@ -8,6 +8,7 @@ import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.MouseManager;
+import Misc.MusicPlayer;
 
 public class Robbin extends Boss{
 	public Robbin() {
@@ -19,39 +20,24 @@ public class Robbin extends Boss{
 	boolean inAct = false;
 	int act = 0, actTick = 0;
 	double temp[] = new double[10];
+	boolean first = true;
 	public void tick2() {
+		if(first) {
+			first = false;
+			MusicPlayer.playerMusic("C:\\Users\\souls\\Downloads\\Game.wav");
+		}
 		if(inAct) {
 			switch(act) {
 				case 0:
-					switch(actTick) {
-						case 0 :star(5, 00);break;
-						case 10:star(5, 10);break;
-						case 20:star(5, 20);break;
-						case 30:star(5, 30);break;
-						case 40:star(5, 40);break;
-						case 50:star(5, 50);break;
-						case 60:star(5, 60);break;
-						case 70:star(5, 70);break;
-						case 80:star(5, 80);break;
-					}
-					if(actTick>100) {
+					star(5, actTick);
+					if(actTick>200) {
 						if(Math.random()>.5) inAct = false;
 						else inAct = true;
 					}
 					break;
 				case 1:
-					switch(actTick) {
-						case 0 :star(5, 80);break;
-						case 10:star(5, 70);break;
-						case 20:star(5, 60);break;
-						case 30:star(5, 50);break;
-						case 40:star(5, 40);break;
-						case 50:star(5, 30);break;
-						case 60:star(5, 20);break;
-						case 70:star(5, 10);break;
-						case 80:star(5, 00);break;
-					}
-					if(actTick>100) {
+					star(5, -actTick);
+					if(actTick>200) {
 						if(Math.random()>.5) inAct = false;
 						else inAct = true;
 					}
@@ -66,7 +52,7 @@ public class Robbin extends Boss{
 					if(actTick>60) inAct = false;
 					break;
 				case 4:
-					if(actTick==0) star(180, 0);
+					if(actTick==0) star(20, 0);
 					if(actTick>60) inAct = false;
 					break;
 				default:inAct = false;

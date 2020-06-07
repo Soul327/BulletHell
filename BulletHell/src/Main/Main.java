@@ -21,7 +21,7 @@ import Misc.Prerender;
 public class Main implements Runnable {
 	
 	public static boolean scaling = true;
-	public static int width=0, height=0, devMode = 0, maxFPS = 60, baseWidth=1366, baseHeight=768;
+	public static int width=0, height=0, devMode = 0, maxFPS = 120, baseWidth=1366, baseHeight=768;
 	public static double scale = 1,fps=0;
 	public static ArrayList<String> debugMessages = new ArrayList<String>();
 	
@@ -41,8 +41,9 @@ public class Main implements Runnable {
 	}
 	
 	public Main(){
+		baseWidth = 1600; baseHeight = 900;
+		Main.width = 1280; Main.height = 800;
 		Main.width = baseWidth; Main.height = baseHeight;
-		Main.width = 1366; Main.height = 768;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 		Assets.init();
@@ -70,7 +71,7 @@ public class Main implements Runnable {
 		frame.pack();
 		frame.addKeyListener(keyManager);
 		
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		width=canvas.getWidth();
 		height=canvas.getHeight();
