@@ -8,12 +8,12 @@ import Misc.Graphics;
 
 public class PetRock extends Gadget{
 	
-	int sel = 0,timmer = 0;
+	int sel = 0,timer = 0;
 	ArrayList<String> speech = new ArrayList<String>();
 	
 	public PetRock() {
 		name = "Pet Rock";
-		decription = "A cold round rock that berates you on interaction";
+		decription = "A \"helpful\" little friend";
 		
 		speech.add("Fuck you");
 		speech.add("Don't miss");
@@ -23,28 +23,29 @@ public class PetRock extends Gadget{
 		speech.add("Bro, do you even game?");
 		speech.add("Fired, and ye missed");
 		speech.add("POGGERS!");
-		speech.add("You Fell Victim to one of the Classic Blunders!");
-		speech.add("Your Mother was a Hamster");
-		speech.add("Your Father smelled of elderberries");
+		speech.add("You fell victim to one of the classic blunders!");
+		speech.add("Your mother was a hamster");
+		speech.add("Your father smelt of elderberries");
 		speech.add("Your moves are weak");
-		speech.add("You are proof that our god has a sence of humor");
+		speech.add("You are proof that our god has a sense of humor");
 		speech.add("You have delusion of adequacy");
 		speech.add("I like the way you try");
-		speech.add("I like your approach now lets see your departure");
+		speech.add("I like your approach now let's see your departure");
 		speech.add("Set me down, I can take him!");
 		speech.add("Dont get bitter just get better");
+		speech.add("I thought you were supposed to be a hero?");
 	}
 	public void activate() {
 		sel = (int)(Math.random()*speech.size());
-		timmer = 60;
+		timer = 60;
 	}
 	public void render(Graphics g) {
 		if(Math.random()*500<1) {
 			sel = (int)(Math.random()*speech.size());
-			timmer = 60;
+			timer = 60;
 		}
-		if(timmer>0) timmer--;
-		if(timmer<=0) return;
+		if(timer>0) timer--;
+		if(timer<=0) return;
 		g.setColor(Color.white);
 		g.scalable = true;
 		g.drawString(speech.get(sel), 

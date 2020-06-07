@@ -8,7 +8,7 @@ public class MyFirstGun extends Gun{
 		reloadSpeed = 1;
 		magSize = 10;
 		name = "My First Gun";
-		decription = "A weak pistol that should only be picked as your only option";
+		decription = "A weak pistol that should only be picked as a last resort";
 		init();
 	}
 }
