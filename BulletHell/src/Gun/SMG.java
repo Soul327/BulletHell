@@ -1,17 +1,17 @@
 package Gun;
 
 import GameState.Bullet;
-import GameState.World;
 import Misc.MouseManager;
+import World.World;
 
 public class SMG extends Gun{
 	public SMG() {
-		damage = 5;
+		damage = 10;
 		//accuracy = 70;
 		accuracy = 100;
 		fireSpeed = 2;
 		reloadSpeed = .9;
-		magSize = 2500;
+		magSize = 25;
 		bulletSpeed = 15;
 		name = "SMG";
 		decription = "A SMG.";

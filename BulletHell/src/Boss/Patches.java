@@ -3,12 +3,12 @@ package Boss;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.KeyManager;
+import World.World;
 
 public class Patches extends Boss{
 	
@@ -17,13 +17,14 @@ public class Patches extends Boss{
 	public Patches() {
 		name = "Patches";
 		des = "Test ye wares";
-		health = Integer.MAX_VALUE;
+		health = Integer.MAX_VALUE/2;
 		maxHealth = health;
 		width = 50;
 		height = 50;
+		//renderHealth = false;
 	}
 	public void tick2() {
-		health = maxHealth;
+		//health = maxHealth;
 	}
 	public void render(Graphics g) {
 		double camX = StateManager.gameState.world.camX;

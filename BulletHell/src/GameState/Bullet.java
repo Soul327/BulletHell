@@ -7,11 +7,12 @@ import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.PlaySound;
+import World.World;
 
 public class Bullet {
 	public boolean playerDam = true,bossDam = false,remove = false;
 	public int despawn = Main.maxFPS*20;
-	public double x,y,width,height,velX,velY,damage = 1,heightFromGround=5;
+	public double x,y,width,height,velX,velY,damage = 1,heightFromGround=5,angle;
 	
 	public Bullet(double power, double angle) {
 		x = 650;
@@ -22,6 +23,7 @@ public class Bullet {
 		this.velX = (power*(60.0/Main.maxFPS)) * Math.cos(Math.toRadians(angle));
 		this.velY = (power*(60.0/Main.maxFPS)) * Math.sin(Math.toRadians(angle));
 		//new PlaySound("res/Sounds/boom_pack/boom4.wav").start();
+		this.angle = angle;
 	}
 	public void tick() {
 		despawn--;
@@ -30,13 +32,9 @@ public class Bullet {
 		y+=velY;
 		//Check player colide
 		if(playerDam & StateManager.gameState.world.boss.health!=0) {
-			if( StateManager.gameState.world.player.x+StateManager.gameState.world.player.width>x & 
-					StateManager.gameState.world.player.x<x+width & 
-					StateManager.gameState.world.player.y+StateManager.gameState.world.player.height>y & 
-					StateManager.gameState.world.player.y<y+height) {
+			if(StateManager.gameState.world.player.contains(x,y,width,height)){
 				remove = true;
-				if(StateManager.gameState.world.player.health>0)
-					StateManager.gameState.world.player.health-=damage;
+				StateManager.gameState.world.player.damage(damage);;
 			}
 		}
 		if(bossDam) {
@@ -59,26 +57,18 @@ public class Bullet {
 		double camY = StateManager.gameState.world.camY;
 		double scale = Main.scale;
 		
-		if(Main.scaling) {
-			//Draw shadow
-			double temp = Math.abs(heightFromGround/2.0);
-			if(temp>width) temp = width;
-			int t = (int)Math.abs(((temp/height)*255)-255);
-			g.setColor(new Color(50,50,50,t)); 
-			g.fillOval(
-					((x+camX+temp/2) + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)))*scale, 
-					(y+camY+heightFromGround+temp/2)*scale, 
-					(width-temp)*scale, (height-temp)*scale);
-			
-			//Draw bullet
-			if(bossDam) g.drawImage(Assets.assets[0], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
-			if(playerDam) g.drawImage(Assets.assets[1], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
-			
-			g.setColor(Color.red);
-			g.drawCircle(
-					(x+StateManager.gameState.world.camX)*Main.scale,
-					(y+StateManager.gameState.world.camY)*Main.scale,
-					width*Main.scale);
-		}
+		//Draw shadow
+		double temp = Math.abs(heightFromGround/2.0);
+		if(temp>width) temp = width;
+		int t = (int)Math.abs(((temp/height)*255)-255);
+		g.setColor(new Color(50,50,50,t)); 
+		g.fillOval(
+				((x+camX+temp/2) + (Math.pow(heightFromGround,1.1)/2.0)*Math.cos(Math.toDegrees(World.timeOfDay)))*scale, 
+				(y+camY+heightFromGround+temp/2)*scale, 
+				(width-temp)*scale, (height-temp)*scale);
+		
+		//Draw bullet
+		if(bossDam) g.drawImage(Assets.assets[0], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
+		if(playerDam) g.drawImage(Assets.assets[1], (x+StateManager.gameState.world.camX)*Main.scale, (y+StateManager.gameState.world.camY)*Main.scale, width*Main.scale, height*Main.scale);
 	}
 }

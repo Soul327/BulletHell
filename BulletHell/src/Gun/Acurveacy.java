@@ -1,8 +1,8 @@
 package Gun;
 
 import GameState.Bullet;
-import GameState.World;
 import Misc.MouseManager;
+import World.World;
 
 public class Acurveacy extends Gun{
 	public Acurveacy() {

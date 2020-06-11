@@ -1,6 +1,5 @@
 package Misc;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -80,7 +79,20 @@ public class Assets {
 		
 		//New
 		name("res/Patches.png",4,5,16);
-				
+		
+		sheet= new SpriteSheet(ImageLoader.loadImage("res/coins.png"));
+		
+		ani[0][0] = sheet.crop( 0,  0, 40, 44);
+		ani[0][1] = sheet.crop( 0, 44, 40, 44);
+		ani[0][2] = sheet.crop( 0, 88, 40, 44);
+		ani[0][3] = sheet.crop( 0,133, 40, 44);
+		
+		sheet= new SpriteSheet(ImageLoader.loadImage("res/coins-shadow.png"));
+		
+		ani[1][0] = sheet.crop( 0,  0, 40, 44);
+		ani[1][1] = sheet.crop( 0, 44, 40, 44);
+		ani[1][2] = sheet.crop( 0, 88, 40, 44);
+		ani[1][3] = sheet.crop( 0,133, 40, 44);
 	}
 	//Divide up animation sheets & sprite sheets
 	public static void name(String s,int width, int height, int numberOfImages) {
@@ -99,28 +111,28 @@ public class Assets {
 	}
 	
 	public static BufferedImage rotateImageByDegrees(BufferedImage img, double angle) {
-
-    double rads = Math.toRadians(angle);
-    double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
-    int w = img.getWidth();
-    int h = img.getHeight();
-    int newWidth = (int) Math.floor(w * cos + h * sin);
-    int newHeight = (int) Math.floor(h * cos + w * sin);
-
-    BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g2d = rotated.createGraphics();
-    AffineTransform at = new AffineTransform();
-    at.translate((newWidth - w) / 2, (newHeight - h) / 2);
-
-    int x = w / 2;
-    int y = h / 2;
-
-    at.rotate(rads, x, y);
-    g2d.setTransform(at);
-    g2d.drawImage(img, 0, 0, null);
-    g2d.dispose();
-
-    return rotated;
+		
+		double rads = Math.toRadians(angle);
+		double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
+		int w = img.getWidth();
+		int h = img.getHeight();
+		int newWidth = (int) Math.floor(w * cos + h * sin);
+		int newHeight = (int) Math.floor(h * cos + w * sin);
+		
+		BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = rotated.createGraphics();
+		AffineTransform at = new AffineTransform();
+		at.translate((newWidth - w) / 2, (newHeight - h) / 2);
+		
+		int x = w / 2;
+		int y = h / 2;
+		
+		at.rotate(rads, x, y);
+		g2d.setTransform(at);
+		g2d.drawImage(img, 0, 0, null);
+		g2d.dispose();
+		
+		return rotated;
 	}
 }
 

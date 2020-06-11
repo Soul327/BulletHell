@@ -2,12 +2,12 @@ package Gadget;
 
 import java.awt.Color;
 
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.Mat;
 import Misc.MouseManager;
+import World.World;
 
 public class TraceTeleporter extends Gadget{
 	private int radius = 10;

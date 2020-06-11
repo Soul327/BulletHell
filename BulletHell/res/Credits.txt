@@ -1,7 +1,3 @@
-Animated Top Down Survivor
-	Riley Gombart
-	https://opengameart.org/content/animated-top-down-survivor-player
-
 Bullet Collection 1
 	Master484
 	https://opengameart.org/content/bullet-collection-1-m484
@@ -11,9 +7,14 @@ Smoke & Fire Animated Particle [16x16]
 	KnoblePersona
 	https://opengameart.org/content/smoke-fire-animated-particle-16x16
 
-Villager_01 - Bleed's Game Art
-	Bleed
-	Bleed - http://remusprites.carbonmade.com/
-
 Game.wav
 	Blum Hoggard
+
+Spinning coin
+	JM.Atencia
+	https://opengameart.org/content/spinning-coin
+
+10 8bit coin sounds
+	Luke.RUSTLTD
+	https://opengameart.org/content/10-8bit-coin-sounds
+	www.rustltd.com

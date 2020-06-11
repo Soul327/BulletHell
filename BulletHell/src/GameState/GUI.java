@@ -8,6 +8,9 @@ import Boss.Boss;
 import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
+import World.Arena;
+import World.Crowd;
+import World.World;
 
 public class GUI {
 	int borderBuffer = 10;
@@ -34,7 +37,30 @@ public class GUI {
 		g.setColor(new Color(180, 12, 10).darker()); g.fillRect(Main.width/2-temp/2, 10, temp, height);
 		g.setColor(new Color(180, 12, 10)); g.fillRect(Main.width/2-temp/2, 10, (boss.health/boss.maxHealth)*temp, height);
 		g.setFont(new Font("Serif",Font.PLAIN,height));
-		g.drawOutlinedString(boss.name, Main.width/2-temp/2+5, 0);
+		String s = boss.name;
+		if(boss.title!=null) 
+			if(boss.title.length()!=0) 
+				s = boss.name + ", " + boss.title;
+		g.drawOutlinedString(s, Main.width/2-temp/2+5, 0);
+	}
+	public void renderRating(Graphics g) {
+		g.scalable = false;
+		World world = StateManager.gameState.world;
+		if(world instanceof Arena) {
+			Arena a = (Arena) world;
+			Crowd crowd = a.crowd;
+			
+			int temp = (int)(Main.width/2.2);
+			int top = 35;
+			int height = (int)(Main.height*0.01);
+			g.setColor(new Color(50,50,50,150));
+			g.fillRect(Main.width/2-temp/2+5, top+3, temp-2, height);
+			
+			g.setColor(new Color(0, 250, 0)); g.fillRect(Main.width/2, top, temp/2, height);
+			g.setColor(new Color(136, 20, 20)); g.fillRect(Main.width/2-temp/2, top, temp/2, height);
+			g.setColor(Color.white); g.fillRect((Main.width/2)+temp*((crowd.rating+crowd.bonus)/(crowd.limit*2)), top-2, 5, height+4);
+			//g.setColor(new Color(180, 12, 10)); g.fillRect(Main.width/2-temp/2, top, (boss.health/boss.maxHealth)*temp, height);
+		}
 	}
 	public void renderPlayerHealth(Graphics g) {
 		int width = (int)(Main.width*0.1382306477);
@@ -82,10 +108,11 @@ public class GUI {
 	}
 	public void render(Graphics g){
 		if(boss==null & player==null) return;
-		renderBossHealth(g);
+		if(boss.renderHealth) renderBossHealth(g);
+		renderRating(g);
 		renderPlayerHealth(g);
 		renderGadget(g);
-		renderAmmo(g);
+		if(player.gun.ammoUse>0) renderAmmo(g);
 		/*
 		//Gun
 		if(player.gun.reloadTimmer==0) {

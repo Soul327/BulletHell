@@ -21,6 +21,12 @@ import Misc.MouseManager;
 public class Player {
 	public static boolean invincibility=false;
 	int heightFromGround = 20;
+	/* shield[0] = Max Cool down
+	 * shield[1] = Cool down 
+	 * shield[2] = Max Shield Time
+	 * shield[3] = Shield Time
+	 */
+	short shield[] = new short[4];
 	public double health = 100, maxHealth = 100,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
 	public Gadget gadget = new TraceTeleporter();
 	public Gun gun = new SMG();
@@ -28,21 +34,24 @@ public class Player {
 	public Player() {
 		x = 800 - width/2;
 		y = 600 + height/2;
-	}
-	public double getLocX() {
-		return Main.width/2-(x*Main.scale)-(width*Main.scale)/2;
-	}
-	public double getLocY() {
-		return Main.height/2-(y*Main.scale)-(height*Main.scale)/2;
+		shield[0] = 120;
+		shield[2] = 60;
 	}
 	public void tick() {
+		if(shield[1]>0) shield[1]--;
+		if(shield[3]>0) shield[3]--;
+	}
+	public void tiedTick() {
 		if(KeyManager.keys[KeyEvent.VK_W]) y-=speed;
 		if(KeyManager.keys[KeyEvent.VK_S]) y+=speed;
 		if(KeyManager.keys[KeyEvent.VK_A]) x-=speed;
 		if(KeyManager.keys[KeyEvent.VK_D]) x+=speed;
 		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize & gun.reloadTimmer==0) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
 		if(KeyManager.keys[KeyEvent.VK_SPACE]) {//Roll
-			
+			if(shield[1]<=0) {
+				shield[1] = shield[0];
+				shield[3] = shield[2];
+			}
 		}
 		if(MouseManager.rightPressed) { gadget.use(); }
 		if(MouseManager.leftPressed) { gun.fire(); }
@@ -59,44 +68,41 @@ public class Player {
 		if(y+height>StateManager.gameState.world.height) y=StateManager.gameState.world.height-height;
 		if(y<0) y=0;
 	}
+	public void damage(double dam) {
+		if(shield[3]>0) return;
+		health -= dam;
+		if(health<0) health = 0;
+		if(health>maxHealth) health = maxHealth;
+	}
 	public void render(Graphics g) {
+		g.scalable = true;
+		double camX = StateManager.gameState.world.camX;
+		double camY = StateManager.gameState.world.camY;
+		
+		int incSize = 25;
+		g.drawImage(Assets.assets[25], (x+camX-incSize/2), (y+camY-incSize), (width+incSize), (height+incSize));
+		
+		g.setColor(Color.blue);
+		if(shield[3]>0) g.drawOval((x+camX), (y+camY), width, height);
+		if(shield[3]>0) g.fillOval((x+camX), (y+camY), width, height);
+		
+		g.setColor(Color.white);
+		if(Main.devMode>0)
+			g.drawRect((x+camX), (y+camY), width, height);
+		gadget.render(g);
 		g.scalable = false;
-		if(Main.scaling) {
-			double camX = StateManager.gameState.world.camX;
-			double camY = StateManager.gameState.world.camY;
-			
-			int incSize = 25;
-			g.drawImage(Assets.assets[25], (x+camX-incSize/2)*Main.scale, (y+camY-incSize)*Main.scale, (width+incSize)*Main.scale, (height+incSize)*Main.scale);
-			
-			g.setColor(Color.white);
-			if(Main.devMode>0)
-				g.drawRect((x+camX)*Main.scale, (y+camY)*Main.scale, width*Main.scale, height*Main.scale);
-			gadget.render(g);
-		}else {
-			double angle = Math.toDegrees(
-					Mat.getAngle(
-							StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
-							StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2,
-							MouseManager.mouseX-StateManager.gameState.world.camX,
-							MouseManager.mouseY-StateManager.gameState.world.camY));
-			int incSize = 25;
-			g.drawImage(Assets.assets[25], x+StateManager.gameState.world.camX-incSize/2, y+StateManager.gameState.world.camY-incSize, width+incSize, height+incSize);
-			/*
-			int incSize = 100;
-			g.drawRotatedImage(
-					Assets.assets[24], 
-					x+StateManager.gameState.world.camX-incSize/2, 
-					y+StateManager.gameState.world.camY-incSize/2, 
-					width+incSize, 
-					height+incSize, 
-					angle);
-			*/
-			if(Main.devMode>0)
-				g.drawRect(x+StateManager.gameState.world.camX,y+StateManager.gameState.world.camY, width, height);
-			gadget.render(g);
-		}
 	}
 	public boolean contains(double x, double y) {
+		if( this.x+this.width>x & 
+				this.x<x & 
+				this.y+this.height>y & 
+				this.y<y) {
+			return true;
+		}else
+			return false;
+	}
+	public boolean contains(double x, double y, double width, double height) {
+		//*
 		if( this.x+this.width>x & 
 				this.x<x+width & 
 				this.y+this.height>y & 
@@ -104,5 +110,6 @@ public class Player {
 			return true;
 		}else
 			return false;
+		//*/
 	}
 }

@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import GameState.Grenade;
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.Mat;
 import Misc.MouseManager;
+import World.World;
 
 public class NightsRow extends Boss{
 	double grenadeRange = 400;

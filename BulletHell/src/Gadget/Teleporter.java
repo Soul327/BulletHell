@@ -1,10 +1,10 @@
 package Gadget;
 
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.MouseManager;
+import World.World;
 
 public class Teleporter extends Gadget{
 	public Teleporter() {
@@ -17,18 +17,17 @@ public class Teleporter extends Gadget{
 		StateManager.gameState.world.player.y = getLocY();
 	}
 	public void render(Graphics g) {
-		//*
-		//g.scalable = true;
+		/*
+		g.scalable = true;
 		double x = getLocX();
 		double y = getLocY();
 		double width = 30, height=30;
 		g.drawRect(
-				(x+StateManager.gameState.world.camX)*Main.scale, 
-				(y+StateManager.gameState.world.camY)*Main.scale, 
-				(width)*Main.scale, 
-				(height)*Main.scale);
+				(x+StateManager.gameState.world.camX), 
+				(y+StateManager.gameState.world.camY), 
+				(width), 
+				(height));
 		g.scalable = false;
-		//*/
+		*/
 	}
-	
 }

@@ -2,16 +2,17 @@ package Gun;
 
 import GameState.Bullet;
 import GameState.Player;
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Mat;
 import Misc.MouseManager;
+import World.World;
 
 public abstract class Gun {
-	public int damage = 11,ammoUse = 1;
+	public int damage = 11,ammoUse = 0;
 	public double accuracy = 89.3, fireSpeed = 12.5, reloadSpeed = 30, magSize = 10, bulletSpeed = 10;
 	public double mag = magSize,reloadTimmer=0,fireTimmer = 0;
+	public double ratingBonus = 0;
 	public String name = "", decription = "";
 	
 	public void init() {

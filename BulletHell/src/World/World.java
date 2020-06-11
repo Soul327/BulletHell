@@ -1,25 +1,19 @@
-package GameState;
+package World;
 
 import java.awt.Color;
-import java.awt.Shape;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import Boss.Boss;
-import Boss.NightsRow;
 import Boss.Patches;
-import Boss.Robbin;
 import Boss.Spy;
+import Entity.Entity;
+import GameState.Bullet;
+import GameState.Player;
 import Misc.Graphics;
-import Misc.KeyManager;
-import Misc.Mat;
-import Misc.MouseManager;
 import Particle.Particle;
-import Particle.Smoke;
 import Main.Main;
-import Main.StateManager;
 
-public class World {
+public abstract class World {
 	public static double timeOfDay = 180;
 	public double camX = 0,camY = 0;
 	public int width=1600,height=900, bootup = Main.maxFPS*3;
@@ -28,17 +22,19 @@ public class World {
 	public ArrayList<Bullet> bullet = new ArrayList<Bullet>();
 	
 	public ArrayList<Particle> particles = new ArrayList<Particle>();
+	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	public World() {
 		player = new Player();
-		boss = new Spy();
+		boss = new Patches();
 		timeOfDay = Math.random()*360;
 	}
-	public void tick(){
+	public void tick(){}
+	public void tiedTick(){
 		if(bootup<=0) {
 			//Main.baseWidth = 1600;
 			Main.baseWidth = 1750;
-			player.tick();
+			player.tiedTick();
 			boss.tick();
 			for(int t=0;t<bullet.size();t++) {
 				bullet.get(t).tick();
@@ -47,6 +43,8 @@ public class World {
 					t--;
 				}
 			}
+			for(Entity e:entities)
+				e.tiedTick();
 		}else {
 			Main.baseWidth = 1750;
 			bootup--;
@@ -73,10 +71,10 @@ public class World {
 					t--;
 				}
 			}
+			for(Entity e:entities) e.render(g);
 		}else {
 			g.setColor(Color.gray.darker());
 			g.fillRect(camX, camY, width, height);
-			camX = player.getLocX(); camY = player.getLocY();
 			camX = Main.width/2-player.x-player.width/2; camY = Main.height/2-player.y-player.height/2;
 			
 			g.setColor(Color.white); g.drawLine(camX, 0, camX, Main.height);

@@ -10,7 +10,6 @@ import Boss.NightsRow;
 import Boss.Patches;
 import Boss.Robbin;
 import Gadget.Gadget;
-import Gadget.GlitchBack;
 import Gadget.PetRock;
 import Gadget.Snap;
 import Gadget.Teleporter;
@@ -47,7 +46,6 @@ public class MenuState {
 		gadget.add(new Teleporter());
 		gadget.add(new TraceTeleporter());
 		gadget.add(new PetRock());
-		gadget.add(new GlitchBack());
 		gadget.add(new Snap());
 		
 		guns.add(new MyFirstGun());

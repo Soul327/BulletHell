@@ -26,13 +26,26 @@ public class StateManager {
 		gameState = new GameState();
 	}
 	
+	int tickTime = 0;
+	
 	public void tick() {
+		tiedTick();
+		if(tickTime==0) tick2();
+		tickTime++;
+		if(tickTime>Main.maxFPS/60.0) tickTime=0; //Runs at 60 FPS
+	}
+	public void tick2(){//Locked at 60
+		switch(state) {
+			case 1:gameState.tick();break;
+		}
+	}
+	public void tiedTick() {//Tied to framerate
 		switch(state) {
 			case 0:menuState.tick();break;
-			case 1:gameState.tick();break;
+			case 1:gameState.tiedTick();break;
 			case 2:
 				if(!Main.load.isAlive()) {
-					state = 0;
+					state = 1;
 					init();
 				}
 				loading.tick();

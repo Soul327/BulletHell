@@ -41,6 +41,7 @@ public class Main implements Runnable {
 	}
 	
 	public Main(){
+		fps = maxFPS;
 		baseWidth = 1600; baseHeight = 900;
 		Main.width = 1280; Main.height = 800;
 		Main.width = baseWidth; Main.height = baseHeight;

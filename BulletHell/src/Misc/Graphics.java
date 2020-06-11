@@ -85,7 +85,7 @@ public class Graphics {
 			y = y*scale;
 			size = size*scale;
 		}
-		g.drawOval((int)(x+size/2), (int)(y+size/2), (int)size, (int)size); 
+		g.drawOval((int)(x-size/2), (int)(y-size/2), (int)size, (int)size); 
 	}
 	public void fillCircle(double x, double y, double size) {
 		if(scalable) {

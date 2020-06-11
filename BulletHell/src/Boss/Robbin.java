@@ -3,26 +3,27 @@ package Boss;
 import java.awt.Color;
 
 import GameState.Bullet;
-import GameState.World;
 import Main.Main;
 import Main.StateManager;
 import Misc.Graphics;
+import Misc.Mat;
 import Misc.MouseManager;
 import Misc.MusicPlayer;
+import World.World;
 
 public class Robbin extends Boss{
 	public Robbin() {
-		name = "Robbin, the Asshole";
+		name = "Robbin";
+		title = "the Asshole";
 		des = "He's just a dick";
 		health = 1800;
 		maxHealth = health;
 	}
-	boolean first = true;
+	public void init() {
+		MusicPlayer.playerMusic("res/Game.wav");
+	}
+	
 	public void tick2() {
-		if(first) {
-			first = false;
-			MusicPlayer.playerMusic("res/Game.wav");
-		}
 		if(inAct) {
 			switch(act) {
 				case 0://Spin and shoot
@@ -39,8 +40,6 @@ public class Robbin extends Boss{
 						else inAct = true;
 					}
 					break;
-				case 2://Wait
-					if(actTick>60) inAct = false; break;
 				case 3:
 					if(actTick==0 & health<=maxHealth/3) star(90, 0);
 					if(actTick==30) {
@@ -54,18 +53,20 @@ public class Robbin extends Boss{
 					if(actTick>60) inAct = false;
 					break;
 				//*
-				case 5://Mine field
-					if(actTick%10==0) temp[0]++;
-					switch((int)temp[0]) {
-						case 0:
-							star(10, 0);
-							break;
-						case 1:
-							star(10, 45);
-							break;
+				case 5://Shoot at player
+					double playerAngle = -Math.toDegrees(Mat.getAngle(
+							x+width/2,
+							y+height/2,
+							StateManager.gameState.world.player.x+StateManager.gameState.world.player.width/2,
+							StateManager.gameState.world.player.y+StateManager.gameState.world.player.height/2));
+					switch(actTick) {
+						case 0: shoot(playerAngle); break;
+						case 5: shoot(5+playerAngle); shoot(-5+playerAngle); break;
+						case 10: shoot(10+playerAngle); shoot(-10+playerAngle); break;
+						case 15: shoot(5+playerAngle); shoot(-5+playerAngle); break;
+						case 20: shoot(playerAngle); break;
 					}
-					if(temp[0]>1) temp[0] = 0;
-					if(actTick>60*1) inAct = false;
+					if(actTick>20) inAct = false;
 					break;
 				//*/
 				default:inAct = false;
@@ -74,10 +75,17 @@ public class Robbin extends Boss{
 		}else {
 			temp = new double[10];
 			act = (int)(Math.random()*10);
-			act = 5;
+			//act = 6;
 			actTick = 0;
 			inAct = true;
 		}
+	}
+	public void shoot(double angle) {
+		Bullet bul = new Bullet(4,angle);
+		bul.damage = 10;
+		bul.x = x+width/2-bul.width/2;
+		bul.y = y+height/2-bul.height/2;
+		StateManager.gameState.world.bullet.add(bul);
 	}
 	public void render(Graphics g) {
 		if(Main.scaling) {

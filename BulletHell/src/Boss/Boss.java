@@ -4,16 +4,17 @@ import java.awt.Color;
 
 import GameState.Bullet;
 import GameState.Player;
-import GameState.World;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.MouseManager;
+import World.World;
 
 public abstract class Boss {
 	
-	public String name,des;
+	public boolean renderHealth = true;
+	public String name,des,title;
 	boolean dead = false;
-	int heightFromGround = 10;
+	int heightFromGround = 10, form = 0;
 	public double x=0,y=0,width=100,height=100;
 	public double health = 2469,maxHealth = 2469;
 	
@@ -23,9 +24,15 @@ public abstract class Boss {
 		width = 100;
 		height = 100;
 	}
+	public void init() {}
 	
+	boolean firstRun = true;
 	int tickTime = 0;
 	public void tick() {
+		if(firstRun) {
+			firstRun = false;
+			init();
+		}
 		if(dead) return;
 		if(health<=0) {
 			health = 0;
@@ -45,8 +52,14 @@ public abstract class Boss {
 	boolean inAct = false;
 	int act = 0, actTick = 0;
 	double temp[] = new double[10];
-	public void tick2() {};//This will tick 60 times per second
+	/**Tick 2
+	 * This will tick 60 times per second
+	 */
+	public void tick2() {};
 	
+	/**Tied Tick
+	 * This will tick at the same framerate of the game
+	 */
 	public void tiedTick() {};//Tied Tick is tied to the frame rate of the game
 	public void bootup(int tick) {}
 	public void render(Graphics g) {

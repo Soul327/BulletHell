@@ -9,18 +9,24 @@ import Misc.Graphics;
 import Misc.KeyManager;
 import Misc.Mat;
 import Misc.MouseManager;
+import World.Arena;
+import World.World;
 
 public class GameState {
 	public World world;
 	GUI gui;
 	
 	public GameState() {
-		world = new World();
+		world = new Arena();
 		gui = new GUI();
 	}
 	
 	public void tick() {
 		world.tick();
+	}
+	
+	public void tiedTick() {
+		world.tiedTick();
 		gui.tick();
 		if(KeyManager.keyRelease(KeyEvent.VK_ESCAPE)) {
 			StateManager.state = 0;

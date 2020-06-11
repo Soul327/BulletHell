@@ -80,9 +80,7 @@ public class Spy extends Boss{
 	boolean firstTick = true;
 	public void tick2() {
 		if(firstTick) { presets(); firstTick = false; }
-		for(Lazer laz:lazers) {
-			laz.findEnd(-1);
-		}
+		for(Lazer laz:lazers)	laz.findEnd(-1);
 		
 		if(inAct) {
 			switch(act) {
@@ -124,18 +122,6 @@ public class Spy extends Boss{
 					if(vis>0) vis+=2;
 					if(vis>=255) inAct = false;
 					if(actTick>150) inAct = false;
-					break;
-				case 5://Spawn Lazer
-					switch( 0 ) {
-						case 0:
-							lazers.add(new Lazer(0, (int)(Math.random()*StateManager.gameState.world.height), Math.random()*90));
-							break;
-						case 1:
-							lazers.add(new Lazer(StateManager.gameState.world.width, (int)(Math.random()*StateManager.gameState.world.height), -Math.random()*90));
-							break;
-						
-					}
-					inAct = false;
 					break;
 				default:inAct = false;
 			}
@@ -297,24 +283,24 @@ class Lazer{
 	}
 	
 	public static boolean shareAnyPoint(Point2D.Double A, Point2D.Double B, Point2D.Double C, Point2D.Double D) {
-    if (isPointOnTheLine(A, B, C)) return true;
-    else if (isPointOnTheLine(A, B, D)) return true;
-    else if (isPointOnTheLine(C, D, A)) return true;
-    else if (isPointOnTheLine(C, D, B)) return true;
-    else return false;
+		if (isPointOnTheLine(A, B, C)) return true;
+		else if (isPointOnTheLine(A, B, D)) return true;
+		else if (isPointOnTheLine(C, D, A)) return true;
+		else if (isPointOnTheLine(C, D, B)) return true;
+		else return false;
 	}
 	
 	public static boolean isPointOnTheLine(Point2D.Double A, Point2D.Double B, Point2D.Double P) {  
-    double m = (B.y - A.y) / (B.x - A.x);
-
-    //handle special case where the line is vertical
-    if (Double.isInfinite(m)) {
-        if(A.x == P.x) return true;
-        else return false;
-    }
-
-    if ((P.y - A.y) == m * (P.x - A.x)) return true;
-    else return false;
+		double m = (B.y - A.y) / (B.x - A.x);
+		
+		//handle special case where the line is vertical
+		if (Double.isInfinite(m)) {
+			if(A.x == P.x) return true;
+			else return false;
+		}
+		
+		if ((P.y - A.y) == m * (P.x - A.x)) return true;
+		else return false;
 	}
 	
 	public void render(Graphics g) {

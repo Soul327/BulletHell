@@ -1,8 +1,10 @@
-/Boss/
-/Gadget/
 /GameState/
 /Gun/
 /Main/
+/Boss/
+/World/
+/Gadget/
 /Menu/
-/Misc/
 /Particle/
+/Entity/
+/Misc/
