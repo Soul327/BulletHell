@@ -1,12 +1,9 @@
 package GameState;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 import Gadget.Gadget;
-import Gadget.Teleporter;
 import Gadget.TraceTeleporter;
 import Gun.Gun;
 import Gun.SMG;
@@ -15,12 +12,12 @@ import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.KeyManager;
-import Misc.Mat;
 import Misc.MouseManager;
 
 public class Player {
-	public static boolean invincibility=false;
+	public static boolean invincibility=true;
 	int heightFromGround = 20;
+	public int money = 0;
 	/* shield[0] = Max Cool down
 	 * shield[1] = Cool down 
 	 * shield[2] = Max Shield Time

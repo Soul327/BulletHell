@@ -8,14 +8,16 @@ import java.util.ArrayList;
 import GameState.GameState;
 import Menu.Loading;
 import Menu.MenuState;
+import Menu.Settings;
 import Misc.Graphics;
 
 public class StateManager {
 	
-	public static int state = 2;
+	public static int state = 2,overlayState = -1;
 	public static MenuState menuState;
 	public static GameState gameState;
 	public static Loading loading;
+	public static Settings settings;
 	
 	public StateManager() {
 		loading = new Loading();
@@ -24,6 +26,7 @@ public class StateManager {
 	public void init() {
 		menuState = new MenuState();
 		gameState = new GameState();
+		settings = new Settings();
 	}
 	
 	int tickTime = 0;
@@ -40,16 +43,20 @@ public class StateManager {
 		}
 	}
 	public void tiedTick() {//Tied to framerate
-		switch(state) {
-			case 0:menuState.tick();break;
-			case 1:gameState.tiedTick();break;
-			case 2:
-				if(!Main.load.isAlive()) {
-					state = 1;
-					init();
-				}
-				loading.tick();
-				break;
+		if(overlayState==-1)
+			switch(state) {
+				case 0:menuState.tick();break;
+				case 1:gameState.tiedTick(); break;
+				case 2:
+					if(!Main.load.isAlive()) {
+						state = 1;//Default state after game loads
+						init();
+					}
+					loading.tiedTick();
+					break;
+			}
+		switch(overlayState) {
+			case 3:settings.tiedTick();break;
 		}
 	}
 	public void render(Graphics2D g2d) {
@@ -58,6 +65,12 @@ public class StateManager {
 			case 0:menuState.render(g);break;
 			case 1:gameState.render(g);break;
 			case 2:loading.render(g);break;
+			case 3:settings.render(g);break;
 		}
+		//*
+		switch(overlayState) {
+			case 3:settings.render(g);break;
+		}
+		//*/
 	}
 }

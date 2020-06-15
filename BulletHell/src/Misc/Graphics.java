@@ -128,7 +128,12 @@ public class Graphics {
 		}else
 			drawImage(image,x,y,width,height);
 	}
-	public void drawString(String str, double x, double y) { g.drawString(str, (int)x, (int)y+g.getFontMetrics().getHeight()); }
+	public void drawString(String str, double x, double y) { 
+		if(str==null)
+			g.drawString("null", (int)x, (int)y+g.getFontMetrics().getHeight());
+		else
+			g.drawString(str, (int)x, (int)y+g.getFontMetrics().getHeight());
+	}
 	public void drawOutlinedString(String str, double x, double y) {
 		int borderAmount = 1;
 		g.setColor(Color.black);

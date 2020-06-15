@@ -12,11 +12,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import GameState.Dialog;
 import GameState.Player;
 import Misc.Assets;
 import Misc.KeyManager;
 import Misc.MouseManager;
 import Misc.Prerender;
+import World.Crowd;
 
 public class Main implements Runnable {
 	
@@ -32,6 +34,7 @@ public class Main implements Runnable {
 	public static KeyManager keyManager;
 	public static MouseManager mouseManager;
 	public static StateManager stateManager;
+	public Dialog dialogTest;
 	public static Thread load;
 	
 	//Starts the program
@@ -78,6 +81,7 @@ public class Main implements Runnable {
 		height=canvas.getHeight();
 		
 		stateManager=new StateManager();
+		dialogTest = new Dialog();
 	}
 	private void tick(){
 		width=canvas.getWidth();
@@ -88,11 +92,16 @@ public class Main implements Runnable {
 		if(devMode>0) {
 			if(KeyManager.keyRelease(KeyEvent.VK_F1)) Player.invincibility =! Player.invincibility;
 			if(KeyManager.keyRelease(KeyEvent.VK_F2)) scaling =! scaling;
+			if(KeyManager.keyRelease(KeyEvent.VK_F3)) Crowd.coinMode = !Crowd.coinMode;
+			if(KeyManager.keyRelease(KeyEvent.VK_F4)) StateManager.overlayState = 3;
 		}
-		stateManager.tick();
-		
+		//stateManager.tick();
+		dialogTest.tiedTick();
 		debugMessages = new ArrayList<String>();
 		if(Player.invincibility) debugMessages.add("Invincibility enabled");
+		if(Crowd.coinMode) debugMessages.add("Coin mode enabled");
+		
+		try { debugMessages.add("Entity Size:"+StateManager.gameState.world.entities.size()); }catch(Exception e) {}
 		//Sort debug
 		
 	}
@@ -112,12 +121,14 @@ public class Main implements Runnable {
 		//Clear Screen
 		g.clearRect(0, 0, width, height);
 		g.setColor(new Color(18,20,21));
+		//g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		//Draw Here!
 		
 		Graphics2D g2d=(Graphics2D) g;
 		
-		stateManager.render(g2d);
+		//stateManager.render(g2d);
+		dialogTest.render(new Misc.Graphics(g2d));
 		
 		//Drawing fps
 		if(devMode>0) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Boss.Boss;
 import Main.Main;
 import Main.StateManager;
+import Misc.Assets;
 import Misc.Graphics;
 import World.Arena;
 import World.Crowd;
@@ -56,13 +57,43 @@ public class GUI {
 			g.setColor(new Color(50,50,50,150));
 			g.fillRect(Main.width/2-temp/2+5, top+3, temp-2, height);
 			
-			g.setColor(new Color(0, 250, 0)); g.fillRect(Main.width/2, top, temp/2, height);
-			g.setColor(new Color(136, 20, 20)); g.fillRect(Main.width/2-temp/2, top, temp/2, height);
-			g.setColor(Color.white); g.fillRect((Main.width/2)+temp*((crowd.rating+crowd.bonus)/(crowd.limit*2)), top-2, 5, height+4);
+			g.drawImage(Assets.assets[26], Main.width/2-temp/2.0, top, temp, height);
+			//g.setColor(new Color(0, 250, 0)); g.fillRect(Main.width/2, top, temp/2, height);
+			//g.setColor(new Color(136, 20, 20)); g.fillRect(Main.width/2-temp/2, top, temp/2, height);
+			//Arrows
+			//g.setColor(Color.white); g.fillRect((Main.width/2)+temp*((crowd.rating+crowd.bonus)/(crowd.limit*2)), top-2, 5, height+4);
+			int offset = 1;
+			g.drawImage(Assets.assets[27], (Main.width/2)+temp*((crowd.rating+crowd.bonus)/(crowd.limit*2)), top-offset, 5, height+offset*2);
+			
 			//g.setColor(new Color(180, 12, 10)); g.fillRect(Main.width/2-temp/2, top, (boss.health/boss.maxHealth)*temp, height);
 		}
 	}
 	public void renderPlayerHealth(Graphics g) {
+		g.scalable = true;
+		double health = StateManager.gameState.world.player.health;
+		double healthPerHeart = 20/4.0;
+		int x = 0;
+		//System.out.println(health+" "+healthPerHeart);
+		
+		while(health>0) {
+			if(health>=healthPerHeart*4) {
+				g.drawImage(Assets.ani[2][0], 32.5*x, 0, 32.5, 30);
+				health -= healthPerHeart*4;
+			} else if(health>=healthPerHeart*3){
+				g.drawImage(Assets.ani[2][1], 32.5*x, 0, 32.5, 30);
+				health -= healthPerHeart*3;
+			} else if(health>=healthPerHeart*2){
+				g.drawImage(Assets.ani[2][2], 32.5*x, 0, 32.5, 30);
+				health -= healthPerHeart*2;
+			} else if(health>=healthPerHeart*1){
+				g.drawImage(Assets.ani[2][3], 32.5*x, 0, 32.5, 30);
+				health -= healthPerHeart*1;
+			} else 
+				health = 0;
+			x++;
+		}
+		g.scalable = false;
+		/*
 		int width = (int)(Main.width*0.1382306477);
 		int height = (int)(Main.height*0.0224550898);
 		g.setColor(new Color(50,50,50,150));
@@ -72,7 +103,7 @@ public class GUI {
 		g.setColor(new Color(180, 12, 10)); g.fillRect(borderBuffer, Main.height-height-borderBuffer, width*Math.max(StateManager.gameState.world.player.health/StateManager.gameState.world.player.maxHealth,0), height);
 		g.setFont(new Font("Serif",Font.PLAIN,height));
 		g.drawOutlinedString(StateManager.gameState.world.player.health+"/"+StateManager.gameState.world.player.maxHealth, borderBuffer, Main.height-height*1.75-borderBuffer/2);
-		
+		*/
 	}
 	public void renderAmmo(Graphics g) {
 		int width = (int)(Main.width*0.1579778831);

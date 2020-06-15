@@ -29,5 +29,6 @@ public class Prerender extends Thread{
 
 	public void run() {
 		smoke();
+		//System.out.println("Done");
 	}
 }

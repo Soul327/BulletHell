@@ -93,6 +93,22 @@ public class Assets {
 		ani[1][1] = sheet.crop( 0, 44, 40, 44);
 		ani[1][2] = sheet.crop( 0, 88, 40, 44);
 		ani[1][3] = sheet.crop( 0,133, 40, 44);
+		
+		sheet= new SpriteSheet(ImageLoader.loadImage("res/heart.png"));
+		//Red heart
+		ani[2][0] = sheet.crop(  0, 0, 16, 15);
+		ani[2][1] = sheet.crop( 16, 0, 16, 15);
+		ani[2][2] = sheet.crop( 32, 0, 16, 15);
+		ani[2][3] = sheet.crop( 48, 0, 16, 15);
+		ani[2][4] = sheet.crop( 64, 0, 16, 15);
+		//Gold heart
+		ani[2][5] = sheet.crop(  0, 15, 16, 15);
+		ani[2][6] = sheet.crop( 16, 15, 16, 15);
+		ani[2][7] = sheet.crop( 32, 15, 16, 15);
+		ani[2][8] = sheet.crop( 48, 15, 16, 15);
+		
+		assets[26] = ImageLoader.loadImage("res/bar.png");
+		assets[27] = ImageLoader.loadImage("res/text.png");
 	}
 	//Divide up animation sheets & sprite sheets
 	public static void name(String s,int width, int height, int numberOfImages) {
