@@ -95,8 +95,8 @@ public class Main implements Runnable {
 			if(KeyManager.keyRelease(KeyEvent.VK_F3)) Crowd.coinMode = !Crowd.coinMode;
 			if(KeyManager.keyRelease(KeyEvent.VK_F4)) StateManager.overlayState = 3;
 		}
-		//stateManager.tick();
-		dialogTest.tiedTick();
+		stateManager.tick();
+		//dialogTest.tiedTick();
 		debugMessages = new ArrayList<String>();
 		if(Player.invincibility) debugMessages.add("Invincibility enabled");
 		if(Crowd.coinMode) debugMessages.add("Coin mode enabled");
@@ -127,8 +127,8 @@ public class Main implements Runnable {
 		
 		Graphics2D g2d=(Graphics2D) g;
 		
-		//stateManager.render(g2d);
-		dialogTest.render(new Misc.Graphics(g2d));
+		stateManager.render(g2d);
+		//dialogTest.render(new Misc.Graphics(g2d));
 		
 		//Drawing fps
 		if(devMode>0) {
