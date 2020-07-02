@@ -10,7 +10,6 @@ import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.Mat;
-import Misc.PlaySound;
 import Misc.SoundManager;
 
 public class Coin extends Entity{
@@ -27,17 +26,10 @@ public class Coin extends Entity{
 	double dis = 0;
 	
 	public void tiedTick() {
-		Player player = StateManager.gameState.world.player;
-		dis = Mat.distance(
-				player.x+player.width/2, 
-				player.y+player.height/2, 
-				x+width/2,
-				y+height/2);
-		//System.out.println(dis);
-		if( dis <= 40 ) {
+		if( playerDistance() <= 40 ) {
 			remove = true;
 			//new PlaySound("res/coin_sounds/coin"+ (int)(Math.random()*10+1) +".wav").start();
-			new SoundManager("res/coin_sounds/coin"+ (int)(Math.random()*10+1) +".wav").start();
+			SoundManager.playSound("res/coin_sounds/coin"+ (int)(Math.random()*10+1) +".wav",1f);
 			StateManager.gameState.world.player.money++;
 			//StateManager.gameState.world.entities.add(new Coin());
 		}

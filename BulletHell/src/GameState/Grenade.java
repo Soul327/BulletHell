@@ -10,7 +10,6 @@ import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.MouseManager;
-import Misc.PlaySound;
 import World.World;
 
 public class Grenade {

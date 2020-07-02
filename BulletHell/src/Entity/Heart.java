@@ -10,7 +10,6 @@ import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.Mat;
-import Misc.PlaySound;
 import Misc.SoundManager;
 
 public class Heart extends Entity{

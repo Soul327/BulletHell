@@ -22,7 +22,7 @@ import World.Crowd;
 
 public class Main implements Runnable {
 	
-	public static boolean scaling = true;
+	public static boolean scaling = true, test = false;
 	public static int width=0, height=0, devMode = 0, maxFPS = 120, baseWidth=1366, baseHeight=768;
 	public static double scale = 1,fps=0;
 	public static ArrayList<String> debugMessages = new ArrayList<String>();
@@ -34,6 +34,7 @@ public class Main implements Runnable {
 	public static KeyManager keyManager;
 	public static MouseManager mouseManager;
 	public static StateManager stateManager;
+	public static TestState testState;
 	public Dialog dialogTest;
 	public static Thread load;
 	
@@ -56,7 +57,7 @@ public class Main implements Runnable {
 	}
 	
 	private void init(){
-		frame = new JFrame("");
+		frame = new JFrame("Ateoest");
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
@@ -81,12 +82,18 @@ public class Main implements Runnable {
 		height=canvas.getHeight();
 		
 		stateManager=new StateManager();
+		if(test) testState = new TestState();
 		dialogTest = new Dialog();
 	}
 	private void tick(){
 		width=canvas.getWidth();
 		height=canvas.getHeight();
 		keyManager.tick();
+		if(test) {
+			testState.tick();
+			return;
+		}
+		
 		if(KeyManager.keyRelease(KeyEvent.VK_EQUALS) & devMode<1) devMode++;
 		if(KeyManager.keyRelease(KeyEvent.VK_MINUS) & devMode>0) devMode--;
 		if(devMode>0) {
@@ -127,14 +134,16 @@ public class Main implements Runnable {
 		
 		Graphics2D g2d=(Graphics2D) g;
 		
-		stateManager.render(g2d);
+		if(test)
+			testState.render(new Misc.Graphics(g2d));
+		else
+			stateManager.render(g2d);
 		//dialogTest.render(new Misc.Graphics(g2d));
 		
 		//Drawing fps
 		if(devMode>0) {
 			g.setColor(Color.green);
-			Font font = new Font("Serif",Font.PLAIN,15);
-			g.setFont(font);
+			g.setFont( new Font("Serif",Font.PLAIN,15) );
 			g.drawString("FPS "+fps,0, 15);
 			g.drawString("Scale "+scale,0, 30);
 			for(int x=0;x<debugMessages.size();x++) {

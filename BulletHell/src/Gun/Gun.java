@@ -6,11 +6,23 @@ import Main.Main;
 import Main.StateManager;
 import Misc.Mat;
 import Misc.MouseManager;
+import Misc.SoundManager;
 import World.World;
 
 public abstract class Gun {
-	public int damage = 11,ammoUse = 0;
-	public double accuracy = 89.3, fireSpeed = 12.5, reloadSpeed = 30, magSize = 10, bulletSpeed = 10;
+	public static boolean kick = true;
+	public boolean triggerHeld = false;
+	/* fireMode
+	 * 0 = Automatic
+	 * 1 = Semiauto
+	 */
+	byte fireMode = 0;
+	/* kickBack
+	 * When a bullet is fired the camera will kick back
+	 */
+	byte kickBack = 5;
+	public int ammoUse = 0;
+	public double damage = 11, accuracy = 89.3, fireSpeed = 12.5, reloadSpeed = 30, magSize = 10, bulletSpeed = 10;
 	public double mag = magSize,reloadTimmer=0,fireTimmer = 0;
 	public double ratingBonus = 0;
 	public String name = "", decription = "";
@@ -20,6 +32,7 @@ public abstract class Gun {
 	}
 	public void fire() {
 		if(mag>=ammoUse & fireTimmer<=0 & reloadTimmer<=0) {
+			if(triggerHeld & fireMode == 1) return;
 			double angle = 0;
 			if(Main.scaling) {
 				 angle = -Math.toDegrees( GameState.GameState.getPlayerMouseAngle() );
@@ -44,9 +57,17 @@ public abstract class Gun {
 			activate();
 			mag -= ammoUse;
 			fireTimmer=(Main.maxFPS*fireSpeed)/60;
+			SoundManager.playSound("res/Crowd/applause"+(int)(Math.random()*3+1)+".wav",1f);
+			if(kick) {
+				StateManager.gameState.world.camBounceX -= kickBack*Math.cos(Math.toRadians(angle));
+				StateManager.gameState.world.camBounceY += kickBack*Math.sin(Math.toRadians(angle));
+			}
 		}
 	}
 	public void activate() {}
+	/*
+	 * 
+	 */
 	public void tick() {
 		if(mag<ammoUse & reloadTimmer==0) {
 			reloadTimmer=Main.maxFPS*reloadSpeed;

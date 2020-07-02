@@ -23,7 +23,7 @@ import Gun.SMG;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.KeyManager;
-import Misc.MusicPlayer;
+import Misc.SoundManager;
 
 public class MenuState {
 	int select = 0,gunSelect = 0,gadgetSelect = 0,bossSelect = 0;
@@ -54,10 +54,14 @@ public class MenuState {
 		guns.add(new SMG());
 	}
 	public void tick() {
-		if(MusicPlayer.clip!=null)
-			MusicPlayer.clip.stop();
-		if(KeyManager.keyRelease(KeyEvent.VK_UP)) select--;
-		if(KeyManager.keyRelease(KeyEvent.VK_DOWN)) select++;
+		if(KeyManager.keyRelease(KeyEvent.VK_UP)) { 
+			select--; 
+			SoundManager.playSound("res/Sounds/UI_SFX_Set/switch3.wav", 1f);
+		}
+		if(KeyManager.keyRelease(KeyEvent.VK_DOWN)) {
+			select++;
+			SoundManager.playSound("res/Sounds/UI_SFX_Set/switch4.wav", 1f);
+		}
 		if(KeyManager.keyRelease(KeyEvent.VK_ENTER)) {
 			StateManager.state = 1;
 			StateManager.gameState = new GameState();
@@ -83,6 +87,7 @@ public class MenuState {
 					if(gadgetSelect<0) gadgetSelect--;
 					break;
 			}
+			SoundManager.playSound("res/Sounds/UI_SFX_Set/switch1.wav", 1f);
 		}
 		if(KeyManager.keyRelease(KeyEvent.VK_LEFT)) {
 			switch(select) {
@@ -102,6 +107,7 @@ public class MenuState {
 					if(gadgetSelect<0) gadgetSelect++;
 					break;
 			}
+			SoundManager.playSound("res/Sounds/UI_SFX_Set/switch2.wav", 1f);
 		}
 	}
 	public void render(Graphics g) {

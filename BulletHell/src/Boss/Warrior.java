@@ -5,7 +5,6 @@ import java.awt.Color;
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.Mat;
-import Misc.PlaySound;
 import Misc.SoundManager;
 
 public class Warrior extends Boss{
@@ -24,12 +23,13 @@ public class Warrior extends Boss{
 				title = "Worshiper of Dickson";
 				break;
 		}
+		x = 0;
 	}
 	
 	public void tick2() {
 		if(inAct) {
 			switch(act) {
-				case 0: automobile(); break;
+				case 0: zoom(); break;
 				//*/
 				default:inAct = false;
 			}
@@ -42,31 +42,35 @@ public class Warrior extends Boss{
 			inAct = true;
 		}
 	}
+	public void zoom() {
+		x+=30;
+		if(actTick>StateManager.gameState.world.width/30) inAct = false;
+	}
 	public void automobile() {
 		switch(actTick) {
-		//Intro
-		case   0: new SoundManager("res/Automobile.wav").start(); break;
-		
-		//case  50: star(10, 0); break;
-		case 150: x = 100; break;
-		case 230: x = 900; break;
-		case 300: x = 100; break;
-		case 375: x = 900; break;
-		case 395: x = 100; break;
-		case 420: x = 900; break;
-		case 430: x = 100; break;
-		
-		case 560: star(100,0); break;
-		case 565: star(100,0); break;
-		case 570: star(100,0); break;
-		case 900:inAct = false;
+			//Intro
+			case   0: SoundManager.playSound("res/Automobile.wav",1f); break;
+			
+			//case  50: star(10, 0); break;
+			case 150: x = 100; break;
+			case 230: x = 900; break;
+			case 300: x = 100; break;
+			case 375: x = 900; break;
+			case 395: x = 100; break;
+			case 420: x = 900; break;
+			case 430: x = 100; break;
+			
+			case 560: star(100,0); break;
+			case 565: star(100,0); break;
+			case 570: star(100,0); break;
+			case 900:inAct = false;
+		}
 	}
-}
 	
 	public void automobileSync() {
 		switch(actTick) {
 			//Intro
-			case   0: new PlaySound("res/Automobile.wav").start(); break;
+			case   0: SoundManager.playSound("res/Automobile.wav",1f); break;
 			//*
 			case   1: star(100, 0); break;
 			case  20: star(10,45); break;

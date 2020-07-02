@@ -47,23 +47,18 @@ public class NightsRow extends Boss{
 		if(inAct) {
 			switch(act) {
 				case 0://Stomp and drop grenades
-					switch(actTick) {
-						case 0:y-=10;break;
-						case 1:y+=1;break;
-						case 10:
-							for(int z=0;z<Math.random()*1000;z++) {
-								Grenade gg = new Grenade();
-								gg.fuse += (gg.fuse*2)*Math.random();
-								//if(Math.random()<.5) gg.type = 2;
-								gg.x = Math.random() * (1600-gg.width);
-								gg.y = Math.random() * (900-gg.height);
-								grenade.add(gg);
-							}
+					if(actTick%20==0) StateManager.gameState.world.camBounceY = 10;
+					if(actTick%20==19) {
+						for(int z=0;z<Math.random()*100;z++) {
+							Grenade gg = new Grenade();
+							//gg.fuse += (gg.fuse*2)*Math.random();
+							//if(Math.random()<.5) gg.type = 2;
+							gg.x = Math.random() * (1600-gg.width);
+							gg.y = Math.random() * (900-gg.height);
+							grenade.add(gg);
+						}
 					}
-					if(actTick>1 & actTick<10) y+=1;
-					if(actTick>20) {
-						inAct = false;
-					}
+					if(actTick>120) inAct = false;
 					break;
 				case 1://Shoot accurately 
 					if(actTick%10==0) {

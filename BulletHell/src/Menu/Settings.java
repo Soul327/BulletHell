@@ -3,6 +3,10 @@ package Menu;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 import Main.Main;
 import Main.StateManager;
@@ -17,12 +21,37 @@ public class Settings {
 	public Settings() {
 		volumeSlider = new Slider();
 		volumeSlider.range = 1;
+		//checkFile();
+	}
+	public void updateFile() {
+		try {
+			FileWriter fileWriter = new FileWriter("res/settings.txt");
+			fileWriter.write("volume "+SoundManager.getVolume());
+			fileWriter.close();
+		} catch (IOException e) { e.printStackTrace(); }
+	}
+	public void checkFile() {
+		try {
+			Scanner scan = new Scanner(new File("res/settings.txt"));
+			while(scan.hasNextLine()) {
+				String s = scan.nextLine();
+				Scanner sc = new Scanner(s);
+				if(sc.next().equals("volume")) { 
+					Float vol = sc.nextFloat();
+					SoundManager.setVolume( vol );
+					volumeSlider.value = vol;
+				}
+				sc.close();
+			}
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 	public void tiedTick() {
 		volumeSlider.tiedTick();
-		SoundManager.volume = (float)volumeSlider.getValue();
-		if(KeyManager.keyRelease(KeyEvent.VK_ESCAPE))
+		SoundManager.setVolume( (float)volumeSlider.getValue() );
+		if(KeyManager.keyRelease(KeyEvent.VK_ESCAPE)) {
 			StateManager.overlayState = -1;
+			updateFile();
+		}
 	}
 	public void render(Graphics g) {
 		int line = 0;
@@ -54,7 +83,8 @@ public class Settings {
 
 class Slider {
 	public int x = 100, y = 100, width = 1000, height = 20;
-	public int range = 100, value = 30;
+	public int range = 100;
+	public float value = 30;
 	
 	public double getValue() {
 		return (double)value/width*range;
@@ -66,9 +96,9 @@ class Slider {
 			int my = MouseManager.mouseY;
 			if(mx>x & mx<x+width & my>y & my<y+height) {
 				value = (int)( mx-x );
-				if(Math.random()<.05)
-					new SoundManager("res/coin_sounds/coin"+ (int)(Math.random()*10+1) +".wav").start();
-				//System.out.println(value);
+				//if(Math.random()<.05)
+					//new SoundManager("res/coin_sounds/coin"+ (int)(Math.random()*10+1) +".wav").start();
+					//System.out.println(value);
 			}
 		}
 		

@@ -15,7 +15,7 @@ import Main.Main;
 
 public abstract class World {
 	public static double timeOfDay = 180;
-	public double camX = 0,camY = 0;
+	public double camX = 0,camY = 0, camBounceX = 0, camBounceY = 0;
 	public int width=1600,height=900, bootup = Main.maxFPS*3;
 	public Player player;
 	public Boss boss;
@@ -53,10 +53,11 @@ public abstract class World {
 	}
 	public void render(Graphics g){
 		if(Main.scaling) {
-			camX = -player.x-player.width/2+Main.baseWidth/2;
-			camY = -player.y-player.height/2+Main.baseHeight/2;
+			//camX = -player.x-player.width/2+Main.baseWidth/2;
+			//camY = -player.y-player.height/2+Main.baseHeight/2;
 			//if(bootup>0) { camX=70; camY=10; }
-			camX=70; camY=10;
+			
+			
 			g.setColor(Color.gray.darker());
 			g.fillRect(camX*Main.scale, camY*Main.scale, width*Main.scale, height*Main.scale);
 			

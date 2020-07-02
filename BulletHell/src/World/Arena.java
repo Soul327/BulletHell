@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import Boss.Boss;
+import Boss.NightsRow;
 import Boss.Spy;
 import Boss.Warrior;
 import Entity.Coin;
@@ -24,6 +25,7 @@ public class Arena extends World{
 		timeOfDay = Math.random()*360;
 		crowd = new Crowd();
 		entities.add(new Coin());
+		camX=70; camY=10;
 	}
 	public void tick() {
 		crowd.tick();
@@ -54,10 +56,22 @@ public class Arena extends World{
 	}
 	public void render(Graphics g){
 		if(Main.scaling) {
-			camX = -player.x-player.width/2+Main.baseWidth/2;
-			camY = -player.y-player.height/2+Main.baseHeight/2;
+			//camX = -player.x-player.width/2+Main.baseWidth/2;
+			//camY = -player.y-player.height/2+Main.baseHeight/2;
 			//if(bootup>0) { camX=70; camY=10; }
-			camX=70; camY=10;
+			double regen = 1,maxBounce = 10;
+			if(camBounceX<regen & camBounceX>-regen) camBounceX = 0;
+			if(camBounceY<regen & camBounceY>-regen) camBounceY = 0;
+			if(camBounceX>0) camBounceX-=regen;
+			if(camBounceX<0) camBounceX+=regen;
+			if(camBounceY>0) camBounceY-=regen;
+			if(camBounceY<0) camBounceY+=regen;
+			if(camBounceX>maxBounce) camBounceX = maxBounce;
+			if(camBounceY>maxBounce) camBounceY = maxBounce;
+			if(camBounceX<-maxBounce) camBounceX = -maxBounce;
+			if(camBounceY<-maxBounce) camBounceY = -maxBounce;
+			camX = 70 + camBounceX; camY = 10 + camBounceY;
+			
 			g.setColor(Color.gray.darker());
 			g.fillRect(camX*Main.scale, camY*Main.scale, width*Main.scale, height*Main.scale);
 			

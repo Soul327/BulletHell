@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import GameState.DialogueState;
 import GameState.GameState;
 import Menu.Loading;
 import Menu.MenuState;
@@ -18,6 +19,7 @@ public class StateManager {
 	public static GameState gameState;
 	public static Loading loading;
 	public static Settings settings;
+	public static DialogueState dialogueState;
 	
 	public StateManager() {
 		loading = new Loading();
@@ -27,6 +29,7 @@ public class StateManager {
 		menuState = new MenuState();
 		gameState = new GameState();
 		settings = new Settings();
+		dialogueState = new DialogueState();
 	}
 	
 	int tickTime = 0;
@@ -49,6 +52,7 @@ public class StateManager {
 				case 1:gameState.tiedTick(); break;
 				case 2:
 					if(!Main.load.isAlive()) {
+						state = 0;//Default state after game loads
 						state = 1;//Default state after game loads
 						init();
 					}
@@ -57,6 +61,7 @@ public class StateManager {
 			}
 		switch(overlayState) {
 			case 3:settings.tiedTick();break;
+			case 4:dialogueState.tiedTick();break;
 		}
 	}
 	public void render(Graphics2D g2d) {
@@ -70,6 +75,7 @@ public class StateManager {
 		//*
 		switch(overlayState) {
 			case 3:settings.render(g);break;
+			case 4:dialogueState.render(g);break;
 		}
 		//*/
 	}

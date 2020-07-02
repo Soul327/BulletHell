@@ -10,6 +10,7 @@ import Misc.KeyManager;
 import Misc.Mat;
 import Misc.MouseManager;
 import World.Arena;
+import World.Town;
 import World.World;
 
 public class GameState {
@@ -17,7 +18,8 @@ public class GameState {
 	GUI gui;
 	
 	public GameState() {
-		world = new Arena();
+		//world = new Arena();
+		world = new Town();
 		gui = new GUI();
 	}
 	

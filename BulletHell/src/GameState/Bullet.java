@@ -6,7 +6,6 @@ import Main.Main;
 import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
-import Misc.PlaySound;
 import World.World;
 
 public class Bullet {

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import Gadget.Gadget;
 import Gadget.TraceTeleporter;
 import Gun.Gun;
+import Gun.MyFirstGun;
 import Gun.SMG;
 import Main.Main;
 import Main.StateManager;
@@ -13,9 +14,10 @@ import Misc.Assets;
 import Misc.Graphics;
 import Misc.KeyManager;
 import Misc.MouseManager;
+import World.Town;
 
 public class Player {
-	public static boolean invincibility=true;
+	public static boolean invincibility=false;
 	int heightFromGround = 20;
 	public int money = 0;
 	/* shield[0] = Max Cool down
@@ -31,8 +33,8 @@ public class Player {
 	public Player() {
 		x = 800 - width/2;
 		y = 600 + height/2;
-		shield[0] = 120;
-		shield[2] = 60;
+		shield[0] = 120;//Max Cool Down
+		shield[2] = 60;//Max Shield Time
 	}
 	public void tick() {
 		if(shield[1]>0) shield[1]--;
@@ -43,22 +45,29 @@ public class Player {
 		if(KeyManager.keys[KeyEvent.VK_S]) y+=speed;
 		if(KeyManager.keys[KeyEvent.VK_A]) x-=speed;
 		if(KeyManager.keys[KeyEvent.VK_D]) x+=speed;
-		if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize & gun.reloadTimmer==0) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
-		if(KeyManager.keys[KeyEvent.VK_SPACE]) {//Roll
-			if(shield[1]<=0) {
-				shield[1] = shield[0];
-				shield[3] = shield[2];
+		if(! (StateManager.gameState.world instanceof Town) ) {
+			if(KeyManager.keys[KeyEvent.VK_R] & gun.mag!=gun.magSize & gun.reloadTimmer==0) gun.reloadTimmer=Main.maxFPS*gun.reloadSpeed;
+			if(KeyManager.keys[KeyEvent.VK_SPACE]) {//Roll
+				if(shield[1]<=0) {
+					shield[1] = shield[0];
+					shield[3] = shield[2];
+				}
 			}
-		}
-		if(MouseManager.rightPressed) { gadget.use(); }
-		if(MouseManager.leftPressed) { gun.fire(); }
-		gadget.tick();
-		gun.tick();
-		if(health <= 0 & !invincibility) {
-			//System.out.println(StateManager.gameState.world.boss.health);
-			StateManager.gameState = new GameState();
-			StateManager.state = 0;
-			StateManager.menuState.init();
+			if(MouseManager.rightPressed) { gadget.use(); }
+			if(MouseManager.leftPressed) {
+				gun.fire();
+				gun.triggerHeld = true;
+			} else {
+				gun.triggerHeld = false;
+			}
+			gadget.tick();
+			gun.tick();
+			if(health <= 0 & !invincibility) {
+				//System.out.println(StateManager.gameState.world.boss.health);
+				StateManager.gameState = new GameState();
+				StateManager.state = 0;
+				StateManager.menuState.init();
+			}
 		}
 		if(x+width>StateManager.gameState.world.width) x=StateManager.gameState.world.width-width;
 		if(x<0) x=0;
@@ -78,7 +87,10 @@ public class Player {
 		
 		int incSize = 25;
 		g.drawImage(Assets.assets[25], (x+camX-incSize/2), (y+camY-incSize), (width+incSize), (height+incSize));
+		g.setColor(Color.white);
+		g.fillCenterCircle(x+camX+width/2, y+camY+height/2, 5);
 		
+		if( (StateManager.gameState.world instanceof Town) ) return;
 		g.setColor(Color.blue);
 		if(shield[3]>0) g.drawOval((x+camX), (y+camY), width, height);
 		if(shield[3]>0) g.fillOval((x+camX), (y+camY), width, height);

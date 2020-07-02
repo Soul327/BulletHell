@@ -8,7 +8,7 @@ import Main.StateManager;
 import Misc.Graphics;
 import Misc.Mat;
 import Misc.MouseManager;
-import Misc.MusicPlayer;
+import Misc.SoundManager;
 import World.World;
 
 public class Robbin extends Boss{
@@ -20,7 +20,7 @@ public class Robbin extends Boss{
 		maxHealth = health;
 	}
 	public void init() {
-		MusicPlayer.playerMusic("res/Game.wav");
+		SoundManager.playLoopingSound("res/Game.wav", 1f);
 	}
 	
 	public void tick2() {
