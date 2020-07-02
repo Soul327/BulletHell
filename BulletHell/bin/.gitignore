@@ -1,5 +1,19 @@
+<<<<<<< HEAD
 /Gadget/
 /Menu/
 /Particle/
+=======
+/Boss/
+/Entity/
+/Gadget/
+>>>>>>> branch 'master' of https://github.com/Soul327/BulletHell.git
 /GameState/
+/Gun/
 /Main/
+<<<<<<< HEAD
+=======
+/Menu/
+/Misc/
+/Particle/
+/World/
+>>>>>>> branch 'master' of https://github.com/Soul327/BulletHell.git
