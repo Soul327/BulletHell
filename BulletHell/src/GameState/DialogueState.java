@@ -21,43 +21,42 @@ public class DialogueState {
 	
 	public DialogueState() {
 		file = new File("res/NPC_chat/testy.txt");
-		System.out.println(getMessage(0,null));
+		//System.out.println(getMessage(0,null));
 		//System.out.println(getMessage(1,"I don't see this as very fancy"));
 		//System.out.println(getMessage(1,"Wowie is this a test or something"));
 		//System.out.println(getMessage(2," One"));
 		
-		//getDio(0,null);
-		getDio(1,"I don't see this as very fancy");
-	}
-	public String getMessage(int level, String last) {
-		Scanner scanner;
-		try {
-			String re = "Not found";
-			scanner = new Scanner(file);
+		dio = getDio(0,null);
+		for(String s:dio) System.out.println(s);
+		System.out.println("----\n");
+//		
+//		dio = getDio(1,"I don't see this as very fancy"); 
+//		for(String s:dio) System.out.println(s);
+//		System.out.println("----\n");
+//		
+//		dio = getDio(1,"Wowie is this a test or something");
+//		for(String s:dio) System.out.println(s);
+//		System.out.println("----\n");
+//		
+//		dio = getDio(2,"One");
+//		for(String s:dio) System.out.println(s);
+//		System.out.println("----\n");
+//		
+//		dio = getDio(3,"Test");
+//		for(String s:dio) System.out.println(s);
+//		System.out.println("----\n");
 		
-			if(level==0) re = scanner.nextLine();
-			else
-				while(scanner.hasNextLine()) {
-					String line = scanner.nextLine();
-					if(line.equals(last)) {
-						if(scanner.hasNextLine())
-							re = scanner.nextLine().substring(level);
-						else
-							StateManager.overlayState = -1;
-					}
-				}
-			scanner.close();
-			return re;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return e.getMessage();
-		}
+		//System.exit(0);
 	}
 	public ArrayList<String> getDio(int level, String last) {
 		boolean add = false;
 		Scanner scanner;
 		ArrayList<String> re = new ArrayList<String>();
 		
+		String temp = "";
+		for(int x = level-1;x>0;x--)
+			temp += " ";
+		last = temp += last;
 		try {
 			//Create spaces
 			String space = "";
@@ -67,15 +66,24 @@ public class DialogueState {
 			scanner = new Scanner(file);
 			while(scanner.hasNextLine()) {
 				String line = scanner.nextLine();
+				if(add==true & last!=null) {
+					if(line.charAt(level-1)!=' ')
+						add = false;
+				}
+				
 				if(last!=null) if(line.equals(last)) add = true;
-				if(line.indexOf(space.substring(0,space.length()-2))==0) add = true;
-				if(line.indexOf(space)==0 & line.charAt(level)!=' ' & !add)
-					dio.add(line.substring(level));
+				if(last==null) add = true;
+				if(space.length()>2)
+					if(line.indexOf(space.substring(0,space.length()-2))==0) add = true;
+				if(line.indexOf(space)==0 & line.charAt(level)!=' ' & add)
+					re.add(line.substring(level));
+				//System.out.println(line.indexOf(space)+" "+line.charAt(level)+" "+add+"|"+line);
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		//System.out.println(re.size());
 		return re;
 	}
 	

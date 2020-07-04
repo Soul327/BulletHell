@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class Prerender extends Thread{
 	
-	public static int prerenderSmokeSize = 100,prerenderSmoke;
+	//public static int prerenderSmokeSize = 100,prerenderSmoke;
+	public static int prerenderSmokeSize = 1,prerenderSmoke;
 	public static BufferedImage[] smoke;
 	
 	public static void smoke() {
