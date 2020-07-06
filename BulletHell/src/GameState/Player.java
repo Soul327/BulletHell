@@ -19,14 +19,14 @@ import World.Town;
 public class Player {
 	public static boolean invincibility=false;
 	int heightFromGround = 20;
-	public int money = 0;
+	public int money = 0,iFrames = 0, maxiFrames = 20;
 	/* shield[0] = Max Cool down
 	 * shield[1] = Cool down 
 	 * shield[2] = Max Shield Time
 	 * shield[3] = Shield Time
 	 */
 	short shield[] = new short[4];
-	public double health = 100, maxHealth = 100,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
+	public double health = 300, maxHealth = 300,x=0,y=0,width=30,height=30,speed = 4*(60.0/Main.maxFPS);
 	public Gadget gadget = new TraceTeleporter();
 	public Gun gun = new SMG();
 	
@@ -39,6 +39,7 @@ public class Player {
 	public void tick() {
 		if(shield[1]>0) shield[1]--;
 		if(shield[3]>0) shield[3]--;
+		if(iFrames>0) iFrames --;
 	}
 	public void tiedTick() {
 		if(KeyManager.keys[KeyEvent.VK_W]) y-=speed;
@@ -75,10 +76,11 @@ public class Player {
 		if(y<0) y=0;
 	}
 	public void damage(double dam) {
-		if(shield[3]>0) return;
+		if(shield[3]>0 | iFrames>0) return;
 		health -= dam;
 		if(health<0) health = 0;
 		if(health>maxHealth) health = maxHealth;
+		iFrames = maxiFrames;
 	}
 	public void render(Graphics g) {
 		g.scalable = true;
@@ -100,6 +102,10 @@ public class Player {
 			g.drawRect((x+camX), (y+camY), width, height);
 		gadget.render(g);
 		g.scalable = false;
+		
+		g.setColor(Color.red);
+		for(int z=0;z<iFrames*2;z+=2)
+			g.drawRect(z, z, Main.width-z*2, Main.height-z*2);
 	}
 	public boolean contains(double x, double y) {
 		if( this.x+this.width>x & 

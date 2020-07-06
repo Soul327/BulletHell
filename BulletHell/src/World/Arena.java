@@ -9,6 +9,7 @@ import Boss.Spy;
 import Boss.Warrior;
 import Entity.Coin;
 import Entity.Entity;
+import Entity.Floof;
 import GameState.Bullet;
 import GameState.Player;
 import Main.Main;
@@ -25,6 +26,8 @@ public class Arena extends World{
 		timeOfDay = Math.random()*360;
 		crowd = new Crowd();
 		entities.add(new Coin());
+		for(int z=0;z<100;z++)
+			entities.add(new Floof());
 		camX=70; camY=10;
 	}
 	public void tick() {
@@ -87,6 +90,8 @@ public class Arena extends World{
 				}
 			}
 			for(Entity e:entities) e.render(g);
+			if(Main.devMode>0)
+				for(Entity e:entities) e.debugRender(g);
 			crowd.render(g);
 		}
 	}

@@ -1,6 +1,6 @@
 package Gun;
 
-import GameState.Bullet;
+import Entity.Bullet;
 import GameState.Player;
 import Main.Main;
 import Main.StateManager;
@@ -53,11 +53,11 @@ public abstract class Gun {
 			bul.bossDam = true;
 			bul.damage = damage;
 			//System.out.println("X:"+mx+" Y:"+my+" PX:"+px+" PY:"+py+" Angle:"+angle);
-			StateManager.gameState.world.bullet.add(bul);
+			StateManager.gameState.world.entities.add(bul);
 			activate();
 			mag -= ammoUse;
 			fireTimmer=(Main.maxFPS*fireSpeed)/60;
-			SoundManager.playSound("res/Crowd/applause"+(int)(Math.random()*3+1)+".wav",1f);
+			SoundManager.playSound("res/Crowd/applause"+(int)(Math.random()*3+1)+".wav",.25f);
 			if(kick) {
 				StateManager.gameState.world.camBounceX -= kickBack*Math.cos(Math.toRadians(angle));
 				StateManager.gameState.world.camBounceY += kickBack*Math.sin(Math.toRadians(angle));

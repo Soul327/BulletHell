@@ -27,15 +27,23 @@ public class Robbin extends Boss{
 		if(inAct) {
 			switch(act) {
 				case 0://Spin and shoot
-					star(5, actTick);
-					if(actTick>200) {
-						if(Math.random()>.5) inAct = false;
-						else inAct = true;
+				case 1:
+					if(actTick==0) {
+						temp[0] = Math.random() * 400; //Attack time
+						temp[1] = Math.random() * 4; //Rotation Speed
+						//temp[2]; //Stored Rotation
+						temp[3] = Math.random()*5+3; //Number of points
+						System.out.println("Spin and shoot| Time:"+temp[0]+" Rotation Speed:"+temp[1]);
 					}
-					break;
-				case 1://Spin and shoot
-					star(5, -actTick);
-					if(actTick>200) {
+					
+					if(actTick%3 == 0) {
+						star((int)temp[3], temp[2]);
+						if(act==0)
+							temp[2] += temp[1];
+						else
+							temp[2] -= temp[1];
+					}
+					if(actTick>temp[0]) {
 						if(Math.random()>.5) inAct = false;
 						else inAct = true;
 					}

@@ -6,7 +6,7 @@ import World.World;
 
 public class SMG extends Gun{
 	public SMG() {
-		damage = 10;
+		damage = 1;
 		//accuracy = 70;
 		accuracy = 100;
 		fireSpeed = 2;

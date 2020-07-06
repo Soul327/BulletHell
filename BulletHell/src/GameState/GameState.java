@@ -18,8 +18,8 @@ public class GameState {
 	GUI gui;
 	
 	public GameState() {
-		//world = new Arena();
-		world = new Town();
+		world = new Arena();
+		//world = new Town();
 		gui = new GUI();
 	}
 	

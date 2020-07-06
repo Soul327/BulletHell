@@ -28,12 +28,16 @@ public class KeyManager implements KeyListener {
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
+		try {
+			keys[e.getKeyCode()] = true;
+		}catch(Exception ee) {}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		keys[e.getKeyCode()] = false;
+		try {
+			keys[e.getKeyCode()] = false;
+		}catch(Exception ee) {}
 	}
 
 	@Override
