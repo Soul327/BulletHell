@@ -55,6 +55,7 @@ public class Bullet extends Entity{
 		double camX = StateManager.gameState.world.camX;
 		double camY = StateManager.gameState.world.camY;
 		double scale = Main.scale;
+		g.scalable = false;
 		
 		//Draw shadow
 		double temp = Math.abs(heightFromGround/2.0);

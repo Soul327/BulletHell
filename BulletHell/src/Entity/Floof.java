@@ -48,7 +48,10 @@ public class Floof extends Entity{
 		if(playerDistance()<30) StateManager.gameState.world.player.damage(1);
 		for(Entity e:StateManager.gameState.world.entities)
 			if(e instanceof Bullet)
-				if(entityDistance(e)<30) remove = true;
+				if(entityDistance(e)<30) {
+					e.remove = true;
+					remove = true;
+				}
 	}
 	
 	public void render(Graphics g) {

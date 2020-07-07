@@ -135,13 +135,16 @@ public class Graphics {
 			g.drawString(str, (int)x, (int)y+g.getFontMetrics().getHeight());
 	}
 	public void drawOutlinedString(String str, double x, double y) {
+		drawOutlinedString(str, x, y, Color.white, Color.black);
+	}
+	public void drawOutlinedString(String str, double x, double y, Color strColor, Color outlineColor) {
 		int borderAmount = 1;
-		g.setColor(Color.black);
+		g.setColor(outlineColor);
 		drawString(str, x+borderAmount, y);
 		drawString(str, x-borderAmount, y);
 		drawString(str, x, y+borderAmount);
 		drawString(str, x, y-borderAmount);
-		g.setColor(Color.white);
+		g.setColor(strColor);
 		drawString(str, x, y);
 	}
 	public void drawLine(double x1, double y1, double x2, double y2) {

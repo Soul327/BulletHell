@@ -16,7 +16,7 @@ public class Town extends World{
 		Entity e;
 		//Gadget shop
 		e = new TestNPC();
-		e.x = 100; e.y = 100;
+		e.x = 800; e.y = 600;
 		entities.add(e);
 		//Weapon shop
 		e = new TestNPC();

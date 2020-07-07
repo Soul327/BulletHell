@@ -70,6 +70,7 @@ public class GUI {
 	}
 	public void renderPlayerHealth(Graphics g) {
 		g.scalable = true;
+		/*
 		double health = StateManager.gameState.world.player.health;
 		double healthPerHeart = 20/4.0;
 		int x = 0;
@@ -93,7 +94,9 @@ public class GUI {
 			x++;
 		}
 		g.scalable = false;
-		/*
+		//*/
+		//*
+		g.scalable = false;
 		int width = (int)(Main.width*0.1382306477);
 		int height = (int)(Main.height*0.0224550898);
 		g.setColor(new Color(50,50,50,150));
@@ -103,7 +106,7 @@ public class GUI {
 		g.setColor(new Color(180, 12, 10)); g.fillRect(borderBuffer, Main.height-height-borderBuffer, width*Math.max(StateManager.gameState.world.player.health/StateManager.gameState.world.player.maxHealth,0), height);
 		g.setFont(new Font("Serif",Font.PLAIN,height));
 		g.drawOutlinedString(StateManager.gameState.world.player.health+"/"+StateManager.gameState.world.player.maxHealth, borderBuffer, Main.height-height*1.75-borderBuffer/2);
-		*/
+		//*/
 	}
 	public void renderAmmo(Graphics g) {
 		int width = (int)(Main.width*0.1579778831);

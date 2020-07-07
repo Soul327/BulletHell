@@ -53,7 +53,7 @@ public class StateManager {
 				case 2:
 					if(!Main.load.isAlive()) {
 						state = 0;//Default state after game loads
-						//state = 1;//Default state after game loads
+						state = 1;//Default state after game loads
 						init();
 					}
 					loading.tiedTick();

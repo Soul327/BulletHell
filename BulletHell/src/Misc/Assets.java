@@ -109,6 +109,7 @@ public class Assets {
 		
 		assets[26] = ImageLoader.loadImage("res/bar.png");
 		assets[27] = ImageLoader.loadImage("res/text.png");
+		assets[28] = ImageLoader.loadImage("res/default-profile-image.png");
 	}
 	//Divide up animation sheets & sprite sheets
 	public static void name(String s,int width, int height, int numberOfImages) {

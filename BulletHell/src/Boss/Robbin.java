@@ -33,7 +33,6 @@ public class Robbin extends Boss{
 						temp[1] = Math.random() * 4; //Rotation Speed
 						//temp[2]; //Stored Rotation
 						temp[3] = Math.random()*5+3; //Number of points
-						System.out.println("Spin and shoot| Time:"+temp[0]+" Rotation Speed:"+temp[1]);
 					}
 					
 					if(actTick%3 == 0) {
