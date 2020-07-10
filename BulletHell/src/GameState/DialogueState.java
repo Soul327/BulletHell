@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Entity.NPC;
 import Main.Main;
 import Main.StateManager;
 import Misc.Assets;
@@ -21,18 +22,20 @@ public class DialogueState {
 	ArrayList<String> dio = new ArrayList<String>();
 	int level = 0,mouseDisable = 0;
 	String name = "";
+	NPC npc;
 	
 	public DialogueState() {
-		loadChar("testy",0,null);
+		//loadChar("testy",0,null);
 		//loadChar("testy",1,"I don't see this as very fancy");
 	}
 	
-	public void loadChar(String name,int level, String last) {
+	public void loadChar(String name,int level, String last, NPC npc) {
 		file = new File("res/NPC_chat/"+name+".txt");
 		dio = getDio(level,last);
 		for(String s:dio) System.out.println(s);
 		this.name = name;
 		this.level = level;
+		this.npc = npc;
 	}
 	public ArrayList<String> getDio(int level, String last) {
 		boolean add = false;
@@ -69,6 +72,14 @@ public class DialogueState {
 				//System.out.println(line.indexOf(space)+" "+line.charAt(level)+" "+add+" "+last+" |"+line);
 			}
 			scanner.close();
+			
+			for(String str:dio) {
+				if(str.contains("<") & str.contains(">")) {
+					String s = str.substring(str.indexOf("<")+1, str.indexOf(">"));
+					npc.event(s);
+				}
+			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -109,6 +120,11 @@ public class DialogueState {
 			g.setColor(Color.green.brighter());
 			g.setFont( new Font("Serif",Font.PLAIN,fontSize) );
 			
+			String str = dio.get(0);
+			if(str.contains("<") & str.contains(">")) {
+				//System.out.println( str.substring(str.indexOf("<")+1, str.indexOf(">")) );
+			}
+			
 			g.drawOutlinedString(dio.get(0),
 					border * 2 + headshotWidth*Main.scale,
 					Main.height-headshotHeight*Main.scale-border,
@@ -126,7 +142,7 @@ public class DialogueState {
 					g.drawOutlinedString("    "+dio.get(z), x, y, Color.YELLOW, Color.BLACK);
 					mouseDisable = 30;
 					level+=1;
-					loadChar(name,level,dio.get(z));
+					loadChar(name,level,dio.get(z),npc);
 				}else 
 					g.drawOutlinedString("    "+dio.get(z), x, y, Color.GRAY, Color.BLACK);
 			} else

@@ -2,27 +2,33 @@ package Entity;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.KeyManager;
 
-public class TestNPC extends NPC{
-	
+public abstract class NPC extends Entity{
 	boolean inRange = false;
 	double playerDistance;
+	String name = "testy";
 	
-	public TestNPC() {
-		x = 500; y = 615;
-		//x = 0; y = 0;
-		width = 50;
-		height = 50;
-	}
-	//int ti = 0;
+	int ti = 0;
 	public void tick() {}
 	public void tiedTick() {
-		tickInteract();
+		
+		
+	}
+	public void tickInteract() {
+		playerDistance = playerDistance();
+		if(playerDistance < 100) {
+			if(KeyManager.keyRelease(KeyEvent.VK_E)) {
+				System.out.println(name);
+				StateManager.dialogueState.loadChar(name, 0, null,this);
+				StateManager.overlayState = 4;
+			}
+			inRange = true;
+		} else
+			inRange = false;
 	}
 	public void render(Graphics g) {
 		g.scalable = true;
@@ -39,5 +45,8 @@ public class TestNPC extends NPC{
 	public void debugRender(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.drawRect(x, y, width, height);
+	}
+	public String event(String str) {
+		return "";
 	}
 }

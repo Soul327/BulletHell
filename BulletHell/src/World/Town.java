@@ -3,6 +3,7 @@ package World;
 import java.awt.Color;
 
 import Entity.Entity;
+import Entity.Melissa;
 import Entity.TestNPC;
 import GameState.Bullet;
 import GameState.Player;
@@ -15,7 +16,7 @@ public class Town extends World{
 		player = new Player();
 		Entity e;
 		//Gadget shop
-		e = new TestNPC();
+		e = new Melissa();
 		e.x = 800; e.y = 600;
 		entities.add(e);
 		//Weapon shop
