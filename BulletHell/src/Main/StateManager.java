@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import GameState.BossSelector;
 import GameState.DialogueState;
 import GameState.GameState;
 import Menu.Loading;
@@ -20,6 +21,7 @@ public class StateManager {
 	public static Loading loading;
 	public static Settings settings;
 	public static DialogueState dialogueState;
+	public static BossSelector bossSelector;
 	
 	public StateManager() {
 		loading = new Loading();
@@ -30,6 +32,7 @@ public class StateManager {
 		gameState = new GameState();
 		settings = new Settings();
 		dialogueState = new DialogueState();
+		bossSelector = new BossSelector();
 	}
 	
 	int tickTime = 0;
@@ -54,6 +57,7 @@ public class StateManager {
 					if(!Main.load.isAlive()) {
 						state = 0;//Default state after game loads
 						state = 1;//Default state after game loads
+						overlayState = 5;
 						init();
 					}
 					loading.tiedTick();
@@ -62,6 +66,7 @@ public class StateManager {
 		switch(overlayState) {
 			case 3:settings.tiedTick();break;
 			case 4:dialogueState.tiedTick();break;
+			case 5:bossSelector.tiedTick();break;
 		}
 	}
 	public void render(Graphics2D g2d) {
@@ -76,6 +81,7 @@ public class StateManager {
 		switch(overlayState) {
 			case 3:settings.render(g);break;
 			case 4:dialogueState.render(g);break;
+			case 5:bossSelector.render(g);break;
 		}
 		//*/
 	}

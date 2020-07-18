@@ -3,12 +3,12 @@ package World;
 import java.awt.Color;
 
 import Entity.Entity;
-import Entity.Melissa;
-import Entity.TestNPC;
 import GameState.Bullet;
 import GameState.Player;
 import Main.Main;
 import Misc.Graphics;
+import NPCS.Melissa;
+import NPCS.TestNPC;
 
 public class Town extends World{
 	

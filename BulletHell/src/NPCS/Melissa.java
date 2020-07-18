@@ -1,43 +1,37 @@
-package Entity;
+package NPCS;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import Main.StateManager;
 import Misc.Graphics;
 import Misc.KeyManager;
 
-public class TestNPC extends NPC{
-	
-	boolean inRange = false;
-	double playerDistance;
-	
-	public TestNPC() {
-		x = 500; y = 615;
-		//x = 0; y = 0;
+public class Melissa extends NPC{
+	//Melissa is bee in greek
+	public Melissa() {
 		width = 50;
 		height = 50;
+		name = "Melissa";
 	}
-	//int ti = 0;
-	public void tick() {}
+	
 	public void tiedTick() {
 		tickInteract();
 	}
+	
 	public void render(Graphics g) {
 		g.scalable = true;
 		double camX = StateManager.gameState.world.camX;
 		double camY = StateManager.gameState.world.camY;
 		
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.magenta);
 		g.fillRect(x + camX, y + camY, width, height);
 		
 		g.setColor(Color.WHITE);
 		if(inRange)
 			g.drawRect(x + camX, y + camY, width, height);
 	}
-	public void debugRender(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.drawRect(x, y, width, height);
+	public String event(String str) {
+		return "";
 	}
 }

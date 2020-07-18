@@ -1,15 +1,16 @@
-package Entity;
+package NPCS;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 
 import Main.StateManager;
 import Misc.Graphics;
-import Misc.KeyManager;
 
-public class Melissa extends NPC{
-	//Melissa is bee in greek
-	public Melissa() {
+public class Munera extends NPC{
+	
+	/* In ancient Rome, munera (Latin plural) were the provision of public works and entertainments provided for the benefit of the Roman people ('populus Romanus') by individuals of high status and wealth.
+	 * This will be the way to select the boss fight and check for rewards
+	 */
+	public Munera() {
 		width = 50;
 		height = 50;
 		name = "Melissa";

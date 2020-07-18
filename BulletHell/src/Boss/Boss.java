@@ -1,6 +1,7 @@
 package Boss;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import GameState.Bullet;
 import GameState.Player;
@@ -17,12 +18,17 @@ public abstract class Boss {
 	int heightFromGround = 10, form = 0;
 	public double x=0,y=0,width=100,height=100;
 	public double health = 2469,maxHealth = 2469;
+	public ArrayList<Obj> objs = new ArrayList<Obj>();
 	
 	public Boss() {
 		x = 650;
 		y = 400;
 		width = 100;
 		height = 100;
+		objs.add(new Obj(1,this));
+		objs.add(new Obj(0,this));
+		objs.add(new Obj(0,this));
+		objs.add(new Obj(0,this));
 	}
 	public void init() {}
 	

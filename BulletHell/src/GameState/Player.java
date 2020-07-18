@@ -65,9 +65,10 @@ public class Player {
 			gun.tick();
 			if(health <= 0 & !invincibility) {
 				//System.out.println(StateManager.gameState.world.boss.health);
-				StateManager.gameState = new GameState();
-				StateManager.state = 0;
-				StateManager.menuState.init();
+				//StateManager.gameState = new GameState();
+				//StateManager.state = 0;
+				//StateManager.menuState.init();
+				StateManager.gameState.world = new Town();
 			}
 		}
 		if(x+width>StateManager.gameState.world.width) x=StateManager.gameState.world.width-width;

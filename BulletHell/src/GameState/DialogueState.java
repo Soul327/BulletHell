@@ -8,13 +8,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Entity.NPC;
 import Main.Main;
 import Main.StateManager;
 import Misc.Assets;
 import Misc.Graphics;
 import Misc.KeyManager;
 import Misc.MouseManager;
+import NPCS.NPC;
 
 public class DialogueState {
 	
@@ -24,15 +24,12 @@ public class DialogueState {
 	String name = "";
 	NPC npc;
 	
-	public DialogueState() {
-		//loadChar("testy",0,null);
-		//loadChar("testy",1,"I don't see this as very fancy");
-	}
+	public DialogueState() {}
 	
 	public void loadChar(String name,int level, String last, NPC npc) {
 		file = new File("res/NPC_chat/"+name+".txt");
 		dio = getDio(level,last);
-		for(String s:dio) System.out.println(s);
+		//for(String s:dio) System.out.println(s);
 		this.name = name;
 		this.level = level;
 		this.npc = npc;

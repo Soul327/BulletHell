@@ -177,6 +177,13 @@ public class Graphics {
 		g.drawArc((int)x, (int)y, (int)width, (int)height, (int)startAngle, (int)arcAngle);
 	}
 	public void setFont(Font font) { g.setFont(font); }
+	public void setFontSize(int size) {
+		//Not working
+		Font currentFont = g.getFont();
+		Font newFont = currentFont.deriveFont(currentFont.getSize() * 1.4F);
+		g.setFont(newFont);
+		
+	}
 	public int getStringLength(String s) { return g.getFontMetrics().stringWidth(s); }
 	public int getFontHeight() { return g.getFontMetrics().getHeight(); }
 	public FontMetrics getFontMetrics() { return g.getFontMetrics(); }

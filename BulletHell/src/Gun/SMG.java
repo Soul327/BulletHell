@@ -12,7 +12,7 @@ public class SMG extends Gun{
 		fireSpeed = 2;
 		reloadSpeed = .9;
 		magSize = 25;
-		bulletSpeed = 15;
+		bulletSpeed = 20;
 		name = "SMG";
 		decription = "A SMG.";
 		init();
