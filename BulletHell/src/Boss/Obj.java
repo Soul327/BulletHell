@@ -4,7 +4,7 @@ public class Obj {
 	
 	public boolean completed = false;
 	public int type = 0;
-	public String dis = "";
+	public String name = "",des = "Test Discription";
 	Boss boss;
 	
 	public Obj(int type, Boss boss) {
@@ -12,14 +12,15 @@ public class Obj {
 		this.boss = boss;
 		switch(type) {
 			case 1:
-				dis = "Completion";
+				name = "Completion";
+				des = "Reduce the bosses health to 0 or less";
 				break;
 			default:
-				dis = "Unknown Obj";
+				name = "Unknown Obj";
 				if(Math.random()<.5) completed = true;
 				break;
 		}
-		dis += completed;
+		name += completed;
 	}
 	public void checkComp() {
 		switch(type) {

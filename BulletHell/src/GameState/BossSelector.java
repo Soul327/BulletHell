@@ -51,24 +51,23 @@ public class BossSelector {
 		}
 	}
 	public void render(Graphics g) {
-		if(detailedView)
-			detailedView(g);
-		else {
-			for(int z=0;z<bosses.size();z++) {
-				g.setFont( new Font("Serif",Font.PLAIN,40) );
-				Color color = Color.green;
-				if(z == selected) color = Color.gray;
-				g.drawOutlinedString(bosses.get(z).name, 50, 40*z, color, Color.black);
-			}
+		for(int z=0;z<bosses.size();z++) {
+			g.setFont( new Font("Serif",Font.PLAIN,40) );
+			Color color = Color.green;
+			if(z == selected) color = Color.gray;
+			g.drawOutlinedString(bosses.get(z).name, 50, 40*z, color, Color.black);
 		}
+		detailedView(g);
 	}
 	public void detailedView(Graphics g) {
+		int x = 200;
 		//Selected
 		Boss boss = bosses.get(selected);
 		//g.drawOutlinedString(bosses.size()+" ", 100, 100);
 		g.setFont( new Font("Serif",Font.PLAIN,40) );
-		g.drawOutlinedString(boss.name, 10, 0, Color.green, Color.black);
+		g.drawOutlinedString(boss.name, x+10, 0, Color.green, Color.black);
 		g.setFont( new Font("Serif",Font.PLAIN,30) );
+		int textLevel = 0;
 		for(int z=0;z<boss.objs.size();z++) {
 			Obj obj = boss.objs.get(z);
 			Color color = Color.green;
@@ -77,8 +76,9 @@ public class BossSelector {
 				//Draw coin outline
 				//g.drawImage(Assets.ani[1][0], 15, 55+(35*z), 25, 25);
 			} else 
-				g.drawImage(Assets.ani[0][0], 15, 55+(35*z), 25, 25);
-			g.drawOutlinedString(obj.dis, 50, 40+(35*z), color, Color.black);
+				g.drawImage(Assets.ani[0][0], x+15, 55+textLevel, 25, 25);
+			g.drawOutlinedString(obj.name, x+50, 40+textLevel, color, Color.black); textLevel+=35;
+			g.drawOutlinedString(obj.des, x+75, 40+textLevel, Color.white, Color.black); textLevel+=35;
 		}
 	}
 }
