@@ -1,9 +1,17 @@
 package Main;
 
+import java.io.File;
+
+import Misc.YAML;
+
 public class Test {
 	public static void main(String args[]) {
-		System.out.println(solution("<<>><"));
-		System.out.println(solution(">----<"));
+		YAML config = new YAML(new File("YAML Test.txt"));
+		config.set("Key", "value");
+		config.set("one.two", "value");
+		config.set("one.four.five", "value");
+		config.save();
+		config.print();
 	}
 	public static int solution(String s) {
     //Your code here
